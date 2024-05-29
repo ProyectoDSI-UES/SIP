@@ -25,6 +25,7 @@ namespace SistemaInformacionPersonal.App_Data
         public string PLAZA_ACTUAL { get; set; }
         public Nullable<int> ID_SESION { get; set; }
         public Nullable<int> ID_CURRICULUM { get; set; }
+        public Nullable<bool> ACTIVO { get; set; }
     
         public virtual CURRICULUMS CURRICULUMS { get; set; }
         public virtual SESIONES SESIONES { get; set; }

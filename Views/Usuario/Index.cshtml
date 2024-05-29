@@ -1,87 +1,56 @@
 ﻿@model IEnumerable<SistemaInformacionPersonal.App_Data.USUARIOS>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Usuarios activos";
 }
 
-<h2>Index</h2>
+<h2>Listado de usuarios activos</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-sm table-hover">
+    <thead class="table-dark">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NOMBRES)
+            NOMBRES
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.APELLIDOS)
+            APELLIDOS
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DUI)
+            DUI
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TELEFONO)
+            PLAZA
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DIRECCION)
+            ACCIONES
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NIVEL_EDUCATIVO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ANIOS_EXPERIENCIA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PLAZA_ACTUAL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CURRICULUMS.RUTA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SESIONES.CORREO)
-        </th>
-        <th></th>
     </tr>
+    </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NOMBRES)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.APELLIDOS)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DUI)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TELEFONO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DIRECCION)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NIVEL_EDUCATIVO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ANIOS_EXPERIENCIA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PLAZA_ACTUAL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CURRICULUMS.RUTA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SESIONES.CORREO)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID_USUARIO }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID_USUARIO }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID_USUARIO })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NOMBRES)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.APELLIDOS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DUI)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PLAZA_ACTUAL)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID_USUARIO }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID_USUARIO }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID_USUARIO })
+            </td>
+        </tr>
+    }
 
 </table>

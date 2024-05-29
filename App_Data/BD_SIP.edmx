@@ -4,26 +4,26 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SIPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SIPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CURRICULUMS">
           <Key>
             <PropertyRef Name="ID_CURRICULUM" />
           </Key>
-          <Property Name="ID_CURRICULUM" Type="int" Nullable="false" />
+          <Property Name="ID_CURRICULUM" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RUTA" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="ROLES">
           <Key>
             <PropertyRef Name="ID_ROL" />
           </Key>
-          <Property Name="ID_ROL" Type="int" Nullable="false" />
+          <Property Name="ID_ROL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ROL" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SESIONES">
           <Key>
             <PropertyRef Name="ID_SESION" />
           </Key>
-          <Property Name="ID_SESION" Type="int" Nullable="false" />
+          <Property Name="ID_SESION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CORREO" Type="varchar" MaxLength="50" />
           <Property Name="CONTRASENIA" Type="varchar" MaxLength="150" />
           <Property Name="ID_ROL" Type="int" />
@@ -32,7 +32,7 @@
           <Key>
             <PropertyRef Name="ID_USUARIO" />
           </Key>
-          <Property Name="ID_USUARIO" Type="int" Nullable="false" />
+          <Property Name="ID_USUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NOMBRES" Type="varchar" MaxLength="50" />
           <Property Name="APELLIDOS" Type="varchar" MaxLength="50" />
           <Property Name="DUI" Type="int" />
@@ -43,6 +43,7 @@
           <Property Name="PLAZA_ACTUAL" Type="varchar" MaxLength="100" />
           <Property Name="ID_SESION" Type="int" />
           <Property Name="ID_CURRICULUM" Type="int" />
+          <Property Name="ACTIVO" Type="bit" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'dy2shh8fdfjumex.sys.database_firewall_rules' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -62,8 +63,10 @@ advertencia 6002: La tabla o vista 'dy2shh8fdfjumex.sys.database_firewall_rules'
           <Property Name="create_date" Type="datetime" Nullable="false" />
           <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK__SESIONES__ID_ROL__60A75C0F">
-          <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+        <Association Name="FK__SESIONES__ID_ROL__6EF57B66">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="SESIONES" Type="Self.SESIONES" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ROLES">
@@ -74,8 +77,10 @@ advertencia 6002: La tabla o vista 'dy2shh8fdfjumex.sys.database_firewall_rules'
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__USUARIOS__ID_CUR__68487DD7">
-          <End Role="CURRICULUMS" Type="Self.CURRICULUMS" Multiplicity="0..1" />
+        <Association Name="FK__USUARIOS__ID_CUR__76969D2E">
+          <End Role="CURRICULUMS" Type="Self.CURRICULUMS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CURRICULUMS">
@@ -86,8 +91,10 @@ advertencia 6002: La tabla o vista 'dy2shh8fdfjumex.sys.database_firewall_rules'
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__USUARIOS__ID_SES__6754599E">
-          <End Role="SESIONES" Type="Self.SESIONES" Multiplicity="0..1" />
+        <Association Name="FK__USUARIOS__ID_SES__75A278F5">
+          <End Role="SESIONES" Type="Self.SESIONES" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SESIONES">
@@ -113,21 +120,20 @@ advertencia 6002: La tabla o vista 'dy2shh8fdfjumex.sys.database_firewall_rules'
     [database_firewall_rules].[modify_date] AS [modify_date]
     FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__SESIONES__ID_ROL__60A75C0F" Association="Self.FK__SESIONES__ID_ROL__60A75C0F">
+          <AssociationSet Name="FK__SESIONES__ID_ROL__6EF57B66" Association="Self.FK__SESIONES__ID_ROL__6EF57B66">
             <End Role="ROLES" EntitySet="ROLES" />
             <End Role="SESIONES" EntitySet="SESIONES" />
           </AssociationSet>
-          <AssociationSet Name="FK__USUARIOS__ID_CUR__68487DD7" Association="Self.FK__USUARIOS__ID_CUR__68487DD7">
+          <AssociationSet Name="FK__USUARIOS__ID_CUR__76969D2E" Association="Self.FK__USUARIOS__ID_CUR__76969D2E">
             <End Role="CURRICULUMS" EntitySet="CURRICULUMS" />
             <End Role="USUARIOS" EntitySet="USUARIOS" />
           </AssociationSet>
-          <AssociationSet Name="FK__USUARIOS__ID_SES__6754599E" Association="Self.FK__USUARIOS__ID_SES__6754599E">
+          <AssociationSet Name="FK__USUARIOS__ID_SES__75A278F5" Association="Self.FK__USUARIOS__ID_SES__75A278F5">
             <End Role="SESIONES" EntitySet="SESIONES" />
             <End Role="USUARIOS" EntitySet="USUARIOS" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SIPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -175,6 +181,7 @@ advertencia 6002: La tabla o vista 'dy2shh8fdfjumex.sys.database_firewall_rules'
           <Property Name="ID_CURRICULUM" Type="Int32" />
           <NavigationProperty Name="CURRICULUMS" Relationship="Self.FK__USUARIOS__ID_CUR__68487DD7" FromRole="USUARIOS" ToRole="CURRICULUMS" />
           <NavigationProperty Name="SESIONES" Relationship="Self.FK__USUARIOS__ID_SES__6754599E" FromRole="USUARIOS" ToRole="SESIONES" />
+          <Property Name="ACTIVO" Type="Boolean" />
         </EntityType>
         <EntityType Name="database_firewall_rules">
           <Key>
@@ -282,6 +289,7 @@ advertencia 6002: La tabla o vista 'dy2shh8fdfjumex.sys.database_firewall_rules'
           <EntitySetMapping Name="USUARIOS">
             <EntityTypeMapping TypeName="SIPModel.USUARIOS">
               <MappingFragment StoreEntitySet="USUARIOS">
+                <ScalarProperty Name="ACTIVO" ColumnName="ACTIVO" />
                 <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
                 <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
                 <ScalarProperty Name="APELLIDOS" ColumnName="APELLIDOS" />

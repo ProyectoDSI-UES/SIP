@@ -12,8 +12,8 @@ namespace SistemaInformacionPersonal.Controllers
         [Route("listado")]
         public ActionResult Index()
         {
-            var usuariosTotales = db.USUARIOS.ToList();
-            return View(usuariosTotales);
+            var totalUsers = db.USUARIOS.Where(user => user.ACTIVO == true).ToList();
+            return View(totalUsers);
         }
 
         // GET: Usuario/Details/5
