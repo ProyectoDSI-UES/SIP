@@ -7,7 +7,7 @@
 <h2>Listado de usuarios activos</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Crear")
 </p>
 <table class="table table-sm table-hover">
     <thead class="table-dark">
@@ -46,9 +46,9 @@
                 @Html.DisplayFor(modelItem => item.PLAZA_ACTUAL)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID_USUARIO }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID_USUARIO }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID_USUARIO })
+                @Html.ActionLink("Edit", "Editar", new { id = item.ID_USUARIO }) |
+                @Html.ActionLink("Details", "Detalle", new { id = item.ID_USUARIO }) |
+                @Html.ActionLink("Delete", "Eliminar", new { id = item.ID_USUARIO })
             </td>
         </tr>
     }
