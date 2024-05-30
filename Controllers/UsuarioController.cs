@@ -44,20 +44,32 @@ namespace SistemaInformacionPersonal.Controllers
             }
         }
 
-        // GET: Usuario/Edit/5
+        [Route("editar/{id}")]
         public ActionResult Editar(int id)
         {
-            return View();
+            var user = db.USUARIOS.Find(id);
+            return View(user);
         }
 
-        // POST: Usuario/Edit/5
+        [Route("editar/{id}")]
         [HttpPost]
         public ActionResult Editar(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
 
+                //call the db object and isnert the values from the form to update the user fields
+                var user = db.USUARIOS.Find(id);
+                
+                user.NOMBRES = collection["NOMBRES"];
+                user.APELLIDOS = collection["APELLIDOS"];
+                user.TELEFONO = int.Parse(collection["TELEFONO"]) ;
+                user.DIRECCION = collection["DIRECCION"];
+                user.PLAZA_ACTUAL = collection["PLAZA_ACTUAL"];
+                user.ACTIVO = true;
+                
+                db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             catch
