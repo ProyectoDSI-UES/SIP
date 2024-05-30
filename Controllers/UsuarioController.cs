@@ -13,7 +13,16 @@ namespace SistemaInformacionPersonal.Controllers
         public ActionResult Index()
         {
             var totalUsers = db.USUARIOS.Where(user => user.ACTIVO == true).ToList();
-            return View(totalUsers);
+            
+            if (totalUsers.Count == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(totalUsers);
+            }
+            
         }
 
         [Route("detalle/{id}")]
@@ -34,8 +43,6 @@ namespace SistemaInformacionPersonal.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
-
                 return RedirectToAction("Index");
             }
             catch
@@ -58,7 +65,6 @@ namespace SistemaInformacionPersonal.Controllers
             try
             {
 
-                //call the db object and isnert the values from the form to update the user fields
                 var user = db.USUARIOS.Find(id);
                 
                 user.NOMBRES = collection["NOMBRES"];
@@ -81,7 +87,13 @@ namespace SistemaInformacionPersonal.Controllers
         // GET: Usuario/Delete/5
         public ActionResult Eliminar(int id)
         {
-            return View();
+            
+            var user = db.USUARIOS.Find(id);
+            user.ACTIVO = false;
+            
+            db.SaveChanges();
+            
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Usuario/Delete/5
