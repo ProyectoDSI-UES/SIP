@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace SistemaInformacionPersonal.Controllers
 {
-    [RoutePrefix("Usuarios")]
+    [RoutePrefix("usuarios")]
     public class UsuarioController : Controller
     {
         SIPEntities db = new SIPEntities();
@@ -13,29 +13,36 @@ namespace SistemaInformacionPersonal.Controllers
         public ActionResult Index()
         {
             var totalUsers = db.USUARIOS.Where(user => user.ACTIVO == true).ToList();
-            return View(totalUsers);
+            
+            if (totalUsers.Count == 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View(totalUsers);
+            }
+            
         }
 
-        // GET: Usuario/Details/5
-        public ActionResult Details(int id)
+        [Route("detalle/{id}")]
+        public ActionResult Detalle(int id)
+        {
+            var user = db.USUARIOS.Find(id);
+            return View(user);
+        }
+
+        [Route("crear")]
+        public ActionResult Crear()
         {
             return View();
         }
 
-        // GET: Usuario/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Usuario/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Crear(FormCollection collection)
         {
             try
             {
-                // TODO: Add insert logic here
-
                 return RedirectToAction("Index");
             }
             catch
@@ -44,20 +51,31 @@ namespace SistemaInformacionPersonal.Controllers
             }
         }
 
-        // GET: Usuario/Edit/5
-        public ActionResult Edit(int id)
+        [Route("editar/{id}")]
+        public ActionResult Editar(int id)
         {
-            return View();
+            var user = db.USUARIOS.Find(id);
+            return View(user);
         }
 
-        // POST: Usuario/Edit/5
+        [Route("editar/{id}")]
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Editar(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
 
+                var user = db.USUARIOS.Find(id);
+                
+                user.NOMBRES = collection["NOMBRES"];
+                user.APELLIDOS = collection["APELLIDOS"];
+                user.TELEFONO = int.Parse(collection["TELEFONO"]) ;
+                user.DIRECCION = collection["DIRECCION"];
+                user.PLAZA_ACTUAL = collection["PLAZA_ACTUAL"];
+                user.ACTIVO = true;
+                
+                db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
             catch
@@ -67,14 +85,20 @@ namespace SistemaInformacionPersonal.Controllers
         }
 
         // GET: Usuario/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Eliminar(int id)
         {
-            return View();
+            
+            var user = db.USUARIOS.Find(id);
+            user.ACTIVO = false;
+            
+            db.SaveChanges();
+            
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Usuario/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Eliminar(int id, FormCollection collection)
         {
             try
             {

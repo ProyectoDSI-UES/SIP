@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using SistemaInformacionPersonal.App_Data;
 using SistemaInformacionPersonal.Models;
 
 namespace SistemaInformacionPersonal.Controllers
@@ -17,6 +18,8 @@ namespace SistemaInformacionPersonal.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        
+        SIPEntities db = new SIPEntities();
 
         public AccountController()
         {
@@ -73,22 +76,53 @@ namespace SistemaInformacionPersonal.Controllers
                 return View(model);
             }
 
+            string email = model.Email;
+            string pass  = model.Password;
+            
+            var user = db.SESIONES.Where(u => u.CORREO == email && u.CONTRASENIA == pass).FirstOrDefault();
+            
+            if (user != null)
+            {
+                
+                
+                // var claims = new[]
+                // {
+                //     new Claim(ClaimTypes.Name, user.CORREO),
+                //     new Claim(ClaimTypes.Email, user.CORREO),
+                //     new Claim(ClaimTypes.Role, "Admin")
+                // };
+                //
+                // var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+                // var ctx = Request.GetOwinContext();
+                // var authManager = ctx.Authentication;
+                // authManager.SignIn(identity);
+                
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Intento de inicio de sesión no válido.");
+                return View(model);
+            }
+            
+            
+
             // No cuenta los errores de inicio de sesión para el bloqueo de la cuenta
             // Para permitir que los errores de contraseña desencadenen el bloqueo de la cuenta, cambie a shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Intento de inicio de sesión no válido.");
-                    return View(model);
-            }
+            // var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            // switch (result)
+            // {
+            //     case SignInStatus.Success:
+            //         return RedirectToLocal(returnUrl);
+            //     case SignInStatus.LockedOut:
+            //         return View("Lockout");
+            //     case SignInStatus.RequiresVerification:
+            //         return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+            //     case SignInStatus.Failure:
+            //     default:
+            //         ModelState.AddModelError("", "Intento de inicio de sesión no válido.");
+            //         return View(model);
+            // }
         }
 
         //
