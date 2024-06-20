@@ -1,7 +1,11 @@
-﻿using System.Web.Mvc;
+﻿using SistemaInformacionPersonal.App_Data;
+using SistemaInformacionPersonal.Permisos;
+using System.Web.Mvc;
 
 namespace SistemaInformacionPersonal.Controllers
 {
+
+    [ValidarSesion]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -21,6 +25,12 @@ namespace SistemaInformacionPersonal.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult CerrarSesion()
+        {
+            Session["sesion"] = null;
+            return RedirectToAction("Login", "Sesion");
         }
     }
 }
