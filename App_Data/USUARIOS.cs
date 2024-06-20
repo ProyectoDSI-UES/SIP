@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace SistemaInformacionPersonal.App_Data
 {
     using System;
@@ -14,19 +16,30 @@ namespace SistemaInformacionPersonal.App_Data
     
     public partial class USUARIOS
     {
+        [Display(Name = "ID Usuario")]
         public int ID_USUARIO { get; set; }
+        [Display(Name = "Nombres")]
         public string NOMBRES { get; set; }
+        [Display(Name = "Apellidos")]
         public string APELLIDOS { get; set; }
+        [Display(Name = "DUI")]
         public Nullable<int> DUI { get; set; }
+        [Display(Name = "Teléfono")]
         public Nullable<int> TELEFONO { get; set; }
+        [Display(Name = "Dirección")]
         public string DIRECCION { get; set; }
+        [Display(Name = "Nivel Educativo")]
         public string NIVEL_EDUCATIVO { get; set; }
+        [Display(Name = "Años de Experiencia")]
         public Nullable<int> ANIOS_EXPERIENCIA { get; set; }
+        [Display(Name = "Plaza Actual")]
         public string PLAZA_ACTUAL { get; set; }
+        [Display(Name = "ID Sesion")]
         public Nullable<int> ID_SESION { get; set; }
-        public Nullable<int> ID_CURRICULUM { get; set; }
+        [Display(Name = "ID Curriculum")]
+        public Nullable<int> ID_CURRICULUM { get; set; } 
         public Nullable<bool> ACTIVO { get; set; }
-    
+        
         public virtual CURRICULUMS CURRICULUMS { get; set; }
         public virtual SESIONES SESIONES { get; set; }
     }
