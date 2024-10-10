@@ -3,19 +3,17 @@
 
 include('../includes/conn.php');
 
-          if(isset($_REQUEST['id_user']))
+          if(isset($_REQUEST['id_departamento']))
             {
-              $id_user=$_REQUEST['id_user'];
+              $id_departamento=$_REQUEST['id_departamento'];
             }
             else
             {
-            $id_user=$_POST['id_user'];
+            $id_departamento=$_POST['id_departamento'];
           }
 
-
-
-  mysqli_query($conn,"delete from clientes where id_cliente='$id_user'")or die(mysqli_error());
+  mysqli_query($conn,"delete from departamento where id_departamento='$id_departamento'")or die(mysqli_error());
     echo "<script type='text/javascript'>alert('Eliminado correctamente!');</script>";
-  echo "<script>document.location='cliente.php'</script>";  
+  echo "<script>document.location='departamento.php'</script>";  
   
 ?>

@@ -73,7 +73,7 @@
                           <td><?php echo $estado; ?></td>
                           <td>
                             <a class="btn btn-danger btn-print" href="<?php echo "editar_roles.php?id_rol=$id_rol"; ?>" role="button">Editar</a>
-                            <a class="small-box-footer btn-print" href="<?php echo "editar_password.php?id_user=$id_user"; ?>"><i class="glyphicon glyphicon-remove"></i></a>
+                            <a class="small-box-footer btn-print" href="<?php echo "eliminar_roles.php?id_rol=$id_rol"; ?>"><i class="glyphicon glyphicon-remove" onClick="return confirm('¿Está seguro de que quieres eliminar este rol?');"></i></a>
                           </td>
                         </tr>
                       <?php
