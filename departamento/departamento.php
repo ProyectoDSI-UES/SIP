@@ -67,14 +67,10 @@
                       ?>
                         <tr>
                           <td><?php echo $row['nombre_departamento']; ?></td>
-         
                           <td><?php echo $row['roles']; ?></td>
-                  
                           <td>
-               
                             <a class="btn btn-danger btn-print" href="<?php  echo "editar_departamento.php?id_departamento=$id_departamento";?>"  role="button">Editar</a>
-                            
-          
+                            <a class="small-box-footer btn-print" href="<?php echo "eliminar_departamento.php?id_departamento=$id_departamento"; ?>"><i class="glyphicon glyphicon-remove" onClick="return confirm('¿Está seguro de que quieres eliminar este departamento?');"></i></a>
                           </td>
                         </tr>
                       <?php

@@ -3,127 +3,52 @@ session_start();
 if (isset($_SESSION['admin'])) {
   header('location:includes/home.php');
 }
-
 ?>
-<style type="text/css">
-  /* Bordered form */
-  form {
-    border: 3px solid #f1f1f1;
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-    width: 60%;
-    margin: auto;
-  }
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5">
+        <img src="includes/images/sip_logo.jpg"
+          class="img-fluid" alt="Sistema de Información Personal">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <form action="login.php" method="POST">     
+          <!-- Correo input -->
+          <div data-mdb-input-init class="form-outline mb-4">
+            <input type="text" id="form3Example3" class="form-control form-control-lg"
+              name="username" required autofocus placeholder="Ingrese nombre de usuario" />
+            <label class="form-label" for="form3Example3">Nombre de usuario</label>
+          </div>
 
-  /* Full-width inputs */
-  input[type=text],
-  input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
+          <!-- Contraseña input -->
+          <div data-mdb-input-init class="form-outline mb-3">
+            <input type="password" id="form3Example4" class="form-control form-control-lg"
+              name="password" required placeholder="Ingrese la contraseña" />
+            <label class="form-label" for="form3Example4">Contraseña</label>
+          </div>
 
-  /* Set a style for all buttons */
-  button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-  }
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- Checkbox -->
+            <div class="form-check mb-0">
+              <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+              <label class="form-check-label" for="form2Example3">
+                Recordar contraseña
+              </label>
+            </div>
+          </div>
 
-  /* Add a hover effect for buttons */
-  button:hover {
-    opacity: 0.8;
-  }
-
-  /* Extra style for the cancel button (red) */
-  .cancelbtn {
-    width: auto;
-    padding: 10px 18px;
-    background-color: #f44336;
-  }
-
-  /* Center the avatar image inside this container */
-  .imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-  }
-
-  /* Avatar image */
-  img.avatar {
-    width: 40%;
-    border-radius: 50%;
-  }
-
-  /* Add padding to containers */
-  .container {
-    padding: 16px;
-  }
-
-  /* The "Forgot password" text */
-  span.psw {
-    float: right;
-    padding-top: 16px;
-  }
-
-  /* Change styles for span and cancel button on extra small screens */
-  @media screen and (max-width: 300px) {
-    span.psw {
-      display: block;
-      float: none;
-    }
-
-    .cancelbtn {
-      width: 100%;
-    }
-
-    button {
-      width: 60%;
-    }
-  }
-</style>
-<?php include 'includes/header.php'; ?>
-
-<body class="hold-transition login-page">
-  <div class="login-box">
-    <div class="login-logo">
-      <br>
-      <center>
-        <b>Inicio de Sesión</b>
-      </center>
-      <br>
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+              style="padding-left: 2.5rem; padding-right: 2.5rem;" name="login">INICIAR SESIÓN</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 
-    <div class="login-box-body">
-      <form action="login.php" method="POST">
-        <div class="imgcontainer">
-          <img src="includes/images/sip_logo.jpg" alt="Imagen de inicio de sesión" class="avatar">
-        </div>
-        <div class="form-group has-feedback">
-          <br>
-          <label for="username" class="form-label">Nombre de Usuario:</label>
-          <input type="text" class="form-control" name="username" required autofocus>
-          <span class="glyphicon glyphicon-user form-control-feedback"></span>
-        </div>
-        <div class="form-group has-feedback">
-          <br>
-          <label for="password" class="form-label">Contraseña:</label>
-          <input type="password" class="form-control" name="password" required>
-          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-        </div>
-        <div class="row">
-
-          <button type="submit" class="btn btn-primary" name="login">
-            INICIAR SESIÓN</button>
-        </div>
-      </form>
-    </div>
-    <?php
+  <?php
     if (isset($_SESSION['error'])) {
       echo "
           <div class='callout callout-danger text-center mt20'>
@@ -132,10 +57,19 @@ if (isset($_SESSION['admin'])) {
         ";
       unset($_SESSION['error']);
     }
-    ?>
+  ?>
+
   </div>
+  <div
+    class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+    <!-- Copyright -->
+    <div class="text-white mb-3 mb-md-0">
+      Sistema de Información Personal © 2024.
+    </div>
+    <!-- Copyright -->
+  </div>
+</section>
 
-  <?php include 'includes/scripts.php' ?>
-</body>
-
+<?php include 'includes/scripts.php' ?>
+  
 </html>

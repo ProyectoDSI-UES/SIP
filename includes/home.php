@@ -80,8 +80,7 @@ date_default_timezone_set("America/El_Salvador");
               <!-- small box -->
               <div class="small-box bg-aqua">
                 <div class="inner">
-
-
+                  <h3>0</h3>
                   <p>Asistencia</p>
                 </div>
                 <div class="icon">
@@ -91,10 +90,8 @@ date_default_timezone_set("America/El_Salvador");
               </div>
             </div>
             <!-- ./col -->
-
           </div>
-
-        <?php
+          <?php
         }
         ?>
 
@@ -116,7 +113,6 @@ date_default_timezone_set("America/El_Salvador");
 
                   echo "<h3>" . $query->num_rows . "</h3>";
                   ?>
-
                   <p>Empleados</p>
                 </div>
                 <div class="icon">
@@ -144,6 +140,27 @@ date_default_timezone_set("America/El_Salvador");
                   <i class="ion ion-home"></i>
                 </div>
                 <a href="../departamento/departamento.php" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
+
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <?php
+                  $sql = "SELECT * FROM roles ";
+                  $query = $conn->query($sql);
+
+                  echo "<h3>" . $query->num_rows . "</h3>"
+                  ?>
+
+                  <p>Roles</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-filing"></i>
+                </div>
+                <a href="../roles/roles.php" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->

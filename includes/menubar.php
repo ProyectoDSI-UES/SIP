@@ -14,7 +14,7 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">MENÚ</li>
-      <li class=""><a href="../includes/home.php"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+      <li class=""><a href="../includes/home.php"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li>
 
 
       <?php
@@ -42,48 +42,27 @@
 
         <li class="header">GESTIÓN</li>
 
-        <li class="treeview">
-          <a href="#">
+        <li class="">
+          <a href="../usuario/usuario.php">
             <i class="fa fa-handshake-o"></i>
             <span>Empleados</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="../usuario/usuario.php"><i class="fa fa-handshake-o"></i> Empleados</a></li>
-
-          </ul>
         </li>
 
 
-        <li class="treeview">
-          <a href="#">
+        <li class="">
+          <a href="../departamento/departamento.php">
             <i class="fa fa-group"></i>
             <span>Departamento</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="../departamento/departamento.php"><i class="fa fa-group"></i> Departamento</a></li>
-
-          </ul>
         </li>
 
 
-        <li class="treeview">
-          <a href="#">
+        <li class="">
+          <a href="../roles/roles.php">
             <i class="fa fa-user"></i>
             <span>Roles</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="../roles/roles.php"><i class="fa fa-user"></i> Roles</a></li>
-
-          </ul>
         </li>
 
 
@@ -92,18 +71,12 @@
       } elseif ($rol_usuario == "empleado") {
       ?>
 
-
-        <li class="treeview">
+        <li class="header">GESTIÓN</li>
+        <li class="">
           <a href="#">
             <i class="fa fa-home"></i>
             <span>Asistencias</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-home"></i> Asistencias</a></li>
-          </ul>
         </li>
     </ul>
     </li>
