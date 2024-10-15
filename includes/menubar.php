@@ -45,7 +45,7 @@
         <li class="">
           <a href="../usuario/usuario.php">
             <i class="fa fa-handshake-o"></i>
-            <span>Empleados</span>
+            <span>Usuarios</span>
           </a>
         </li>
 
