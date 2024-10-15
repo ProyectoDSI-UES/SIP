@@ -14,19 +14,17 @@ if (isset($_SESSION['admin'])) {
           class="img-fluid" alt="Sistema de Información Personal">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form action="login.php" method="POST">     
+        <form action="login.php" method="POST">
           <!-- Correo input -->
           <div data-mdb-input-init class="form-outline mb-4">
             <input type="text" id="form3Example3" class="form-control form-control-lg"
               name="username" required autofocus placeholder="Ingrese nombre de usuario" />
-            <label class="form-label" for="form3Example3">Nombre de usuario</label>
           </div>
 
           <!-- Contraseña input -->
           <div data-mdb-input-init class="form-outline mb-3">
             <input type="password" id="form3Example4" class="form-control form-control-lg"
               name="password" required placeholder="Ingrese la contraseña" />
-            <label class="form-label" for="form3Example4">Contraseña</label>
           </div>
 
           <div class="d-flex justify-content-between align-items-center">
@@ -39,25 +37,26 @@ if (isset($_SESSION['admin'])) {
             </div>
           </div>
 
+          <br>
+          <?php
+          if (isset($_SESSION['error'])) {
+            echo "
+          <div class='alert alert-danger text-center'>
+            <p>" . $_SESSION['error'] . "</p> 
+          </div>
+        ";
+            unset($_SESSION['error']);
+          }
+          ?>
+
           <div class="text-center text-lg-start mt-4 pt-2">
-            <button  type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
               style="padding-left: 2.5rem; padding-right: 2.5rem;" name="login">INICIAR SESIÓN</button>
           </div>
         </form>
       </div>
     </div>
   </div>
-
-  <?php
-    if (isset($_SESSION['error'])) {
-      echo "
-          <div class='callout callout-danger text-center mt20'>
-            <p>" . $_SESSION['error'] . "</p> 
-          </div>
-        ";
-      unset($_SESSION['error']);
-    }
-  ?>
 
   </div>
   <div
@@ -71,5 +70,5 @@ if (isset($_SESSION['admin'])) {
 </section>
 
 <?php include 'includes/scripts.php' ?>
-  
+
 </html>
