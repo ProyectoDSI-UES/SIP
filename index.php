@@ -19,14 +19,12 @@ if (isset($_SESSION['admin'])) {
           <div data-mdb-input-init class="form-outline mb-4">
             <input type="text" id="form3Example3" class="form-control form-control-lg"
               name="username" required autofocus placeholder="Ingrese nombre de usuario" />
-            <label class="form-label" for="form3Example3">Nombre de usuario</label>
           </div>
 
           <!-- Contraseña input -->
           <div data-mdb-input-init class="form-outline mb-3">
             <input type="password" id="form3Example4" class="form-control form-control-lg"
               name="password" required placeholder="Ingrese la contraseña" />
-            <label class="form-label" for="form3Example4">Contraseña</label>
           </div>
 
           <div class="d-flex justify-content-between align-items-center">
