@@ -1,3 +1,4 @@
+<meta charset="UTF-8">
 <?php include '../includes/session.php'; ?>
 <?php include '../includes/header.php'; ?>
 
@@ -12,12 +13,12 @@
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-          Lista de empleados
+          Lista de usuarios
         </h1>
         <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-          <li>Empleados</li>
-          <li class="active">Lista de empleados</li>
+          <li>Usuarios</li>
+          <li class="active">Lista de usuarios</li>
         </ol>
       </section>
 
@@ -58,6 +59,7 @@
                   <thead>
                     <th>Foto</th>
                     <th>Nombre</th>
+                    <th>Usuario</th> <!-- Se agregó nombre de usuario -->
                     <th>DUI</th> <!-- Nueva columna para DUI -->
                     <th>Correo</th>
                     <th>Teléfono</th>
@@ -95,6 +97,9 @@
                         <!-- Mostrar nombre completo del usuario -->
                         <td><?php echo $row['nombre'] . ' ' . $row['apellido']; ?></td>
 
+                        <!-- Mostrar nombre de usuario -->
+                        <td><?php echo $row['usuario']; ?></td>
+                        
                         <!-- Mostrar DUI del usuario -->
                         <td><?php echo $row['dui']; ?></td>
 
