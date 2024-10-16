@@ -17,7 +17,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="roles" class="col-sm-3 control-label">Roles</label>
+						<label for="roles" class="col-sm-3 control-label">Descripción</label>
 
 						<div class="col-sm-9">
 							<textarea class="form-control" id="roles" name="roles"></textarea>

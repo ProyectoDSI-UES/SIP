@@ -106,13 +106,13 @@
                       </div>
                       <div class="col-md-2 btn-print">
                         <div class="form-group">
-                          <label for="date">roles</label>
+                          <label for="date">Descripción</label>
 
                         </div><!-- /.form group -->
                       </div>
                       <div class="col-md-4 btn-print">
                         <div class="form-group">
-                          <textarea class="form-control" id="roles" name="roles"><?php echo $row['roles']; ?></textarea>
+                          <textarea class="form-control" id="roles" name="descripcion"><?php echo $row['descripcion']; ?></textarea>
 
                         </div>
                       </div>
