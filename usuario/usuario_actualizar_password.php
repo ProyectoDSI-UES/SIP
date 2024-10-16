@@ -19,12 +19,12 @@ if ($password == $password2) {
 	mysqli_query($conn, "update usuario set password='$pass' where id='$cid'") or die(mysqli_error($conn));
 
 	echo "<script type='text/javascript'>alert('Actualizado correctamente!');</script>";
-	echo "<script>document.location='../includes/home.php'</script>";
+	echo "<script>document.location='../usuario/usuario.php'</script>";
 } else {
 
 
 	echo "<script type='text/javascript'>alert('Error contraseñas no coinciden!');</script>";
-	echo "<script>document.location='../includes/home.php'</script>";
+	echo "<script>document.location='../usuario/usuario.php'</script>";
 }
 
 
