@@ -60,7 +60,7 @@
 
         <li class="">
           <a href="../roles/roles.php">
-            <i class="fa fa-user"></i>
+            <i class="fa fa-suitcase"></i>
             <span>Roles</span>
           </a>
         </li>
