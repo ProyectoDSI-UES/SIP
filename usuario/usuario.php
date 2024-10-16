@@ -76,7 +76,7 @@
                     // Consulta para obtener los datos de usuario y el nombre del rol
                     $sql = "SELECT usuario.*, roles.nombre_rol, usuario.id AS id_user 
                             FROM usuario 
-                            JOIN roles ON usuario.id_rol = roles.id_rol";
+                            JOIN roles ON usuario.id_rol = roles.id_rol WHERE usuario.estado = 1";
 
                     // Ejecutar la consulta
                     $query = $conn->query($sql);
