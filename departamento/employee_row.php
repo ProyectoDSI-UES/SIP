@@ -1,12 +1,11 @@
-<?php 
-	include 'includes/session.php';
+<?php
+include 'includes/session.php';
 
-	if(isset($_POST['id'])){
-		$id = $_POST['id'];
-		$sql = "SELECT *, usuario.id as usuario FROM usuario  WHERE id = '$id'";
-		$query = $conn->query($sql);
-		$row = $query->fetch_assoc();
+if (isset($_POST['id'])) {
+	$id = $_POST['id'];
+	$sql = "SELECT *, usuario.id as usuario FROM usuario  WHERE id = '$id'";
+	$query = $conn->query($sql);
+	$row = $query->fetch_assoc();
 
-		echo json_encode($row);
-	}
-?>
+	echo json_encode($row);
+}
