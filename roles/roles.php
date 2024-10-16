@@ -60,7 +60,7 @@
                 </thead>
                 <tbody>
                   <?php
-                    $sql = "SELECT * FROM roles";
+                    $sql = "SELECT * FROM roles WHERE estado = 1"; // Mostrando los roles cuyo estado sea activo (1)
                     $query = $conn->query($sql);
                     while($row = $query->fetch_assoc()){
                         $id_rol = $row['id_rol'];
