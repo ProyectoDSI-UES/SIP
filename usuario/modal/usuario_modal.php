@@ -71,6 +71,49 @@
               <input type="text" class="form-control" id="nacionalidad" name="nacionalidad" required>
             </div>
           </div>
+
+          <div class="form-group">
+            <label for="roles" class="col-sm-3 control-label">Departamento</label>
+
+            <div class="col-sm-9">
+              <select class="form-control select2" name="id_departamento" required>
+
+
+                <?php
+
+                $queryc = mysqli_query($conn, "SELECT * FROM  departamento  ") or die(mysqli_error($conn));
+                while ($rowc = mysqli_fetch_array($queryc)) {
+                  ?>
+                  <option value="<?php echo $rowc['id_departamento']; ?>"><?php echo $rowc['nombre_departamento']; ?>
+                  </option>
+                <?php } ?>
+              </select>
+
+
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="plazas" class="col-sm-3 control-label">Plaza</label>
+
+            <div class="col-sm-9">
+              <select class="form-control select2" name="id_plaza" required>
+
+
+                <?php
+
+                $queryc = mysqli_query($conn, "SELECT * FROM  plaza where estado = 1") or die(mysqli_error($conn));
+                while ($rowc = mysqli_fetch_array($queryc)) {
+                  ?>
+                  <option value="<?php echo $rowc['id_plaza']; ?>"><?php echo $rowc['nombre']; ?></option>
+                <?php } ?>
+              </select>
+
+
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="salario" class="col-sm-3 control-label">Salario</label>
 
@@ -128,46 +171,6 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="roles" class="col-sm-3 control-label">Departamento</label>
-
-            <div class="col-sm-9">
-              <select class="form-control select2" name="id_departamento" required>
-
-
-                <?php
-
-                $queryc = mysqli_query($conn, "SELECT * FROM  departamento  ") or die(mysqli_error($conn));
-                while ($rowc = mysqli_fetch_array($queryc)) {
-                  ?>
-                  <option value="<?php echo $rowc['id_departamento']; ?>"><?php echo $rowc['nombre_departamento']; ?>
-                  </option>
-                <?php } ?>
-              </select>
-
-
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="plazas" class="col-sm-3 control-label">Plaza</label>
-
-            <div class="col-sm-9">
-              <select class="form-control select2" name="id_plaza" required>
-
-
-                <?php
-
-                $queryc = mysqli_query($conn, "SELECT * FROM  plaza where estado = 1") or die(mysqli_error($conn));
-                while ($rowc = mysqli_fetch_array($queryc)) {
-                  ?>
-                  <option value="<?php echo $rowc['id_plaza']; ?>"><?php echo $rowc['nombre']; ?></option>
-                <?php } ?>
-              </select>
-
-
-            </div>
-          </div>
 
 
           <div class="form-group">
