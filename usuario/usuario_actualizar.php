@@ -54,16 +54,12 @@ if (!empty($_FILES['imagen']['name'])) {
 		$img = basename($_FILES["imagen"]["name"]);
 		mysqli_query($conn, "UPDATE usuario SET usuario='$usuario', imagen='$img', nombre='$nombre', apellido='$apellido', telefono='$telefono', correo='$correo', fecha_nacimiento='$fecha_nacimiento', direccion='$direccion', nacionalidad='$nacionalidad', salario='$salario', id_departamento='$id_departamento', dui='$dui', id_rol='$id_rol', id_plaza='$id_plaza' WHERE id='$cid'") or die(mysqli_error($conn));
 
-		echo "<script type='text/javascript'>alert('Actualizado correctamente!');</script>";
-
 		echo "<script>document.location='usuario.php'</script>";
 	} else {
 		echo "No se pudo subir.";
 	}
 } else {
 	mysqli_query($conn, "UPDATE usuario SET usuario='$usuario', nombre='$nombre', apellido='$apellido', telefono='$telefono', correo='$correo', fecha_nacimiento='$fecha_nacimiento', direccion='$direccion', nacionalidad='$nacionalidad', salario='$salario', id_departamento='$id_departamento', dui='$dui', id_rol='$id_rol' , id_plaza='$id_plaza' WHERE id='$cid'") or die(mysqli_error($conn));
-
-	echo "<script type='text/javascript'>alert('Actualizado correctamente!');</script>";
 
 	echo "<script>document.location='usuario.php'</script>";
 }
