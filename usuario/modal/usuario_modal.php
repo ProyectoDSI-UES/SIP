@@ -147,6 +147,27 @@
           </div>
 
           <div class="form-group">
+            <label for="plazas" class="col-sm-3 control-label">Plaza</label>
+
+            <div class="col-sm-9">
+              <select class="form-control select2" name="id_plaza" required>
+
+
+                <?php
+
+                $queryc = mysqli_query($conn, "SELECT * FROM  plaza where estado = 1") or die(mysqli_error($conn));
+                while ($rowc = mysqli_fetch_array($queryc)) {
+                ?>
+                  <option value="<?php echo $rowc['id_plaza']; ?>"><?php echo $rowc['nombre']; ?></option>
+                <?php } ?>
+              </select>
+
+
+            </div>
+          </div>
+
+
+          <div class="form-group">
             <label for="imagen" class="col-sm-3 control-label">Foto</label>
 
             <div class="col-sm-9">
