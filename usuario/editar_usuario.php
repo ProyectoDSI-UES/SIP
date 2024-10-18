@@ -403,6 +403,35 @@
                     </div>
 
 
+                    <div class="row">
+                      <div class="col-md-1 btn-print">
+                        <div class="form-group">
+                        </div>
+                      </div>
+                      <div class="col-md-2 btn-print">
+                        <div class="form-group">
+                          <label for="id_rol">Plaza</label>
+                        </div>
+                      </div>
+                      <div class="col-md-4 btn-print">
+                        <div class="form-group">
+                          <select class="form-control select2" name="id_plaza" required>
+                            <?php
+                            $queryPlaza = mysqli_query($conn, "SELECT * FROM plaza WHERE estado = 1") or die(mysqli_error($conn));
+                            while ($rowPlaza = mysqli_fetch_array($queryPlaza)) {
+                            ?>
+                              <option value="<?php echo $rowPlaza ['id_plaza']; ?>" <?php if ($row['id_plaza'] == $rowPlaza['id_plaza']) {
+                                                                                  echo "selected";
+                                                                                } ?>><?php echo $rowPlaza['nombre']; ?></option>
+                            <?php } ?>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-4 btn-print">
+                      </div>
+                    </div>
+
+
 
                     <div class="row">
                       <div class="col-md-1 btn-print">
