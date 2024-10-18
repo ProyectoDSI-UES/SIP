@@ -8,7 +8,8 @@
         <h4 class="modal-title"><b>Agregar empleado</b></h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" method="POST" action="usuario_add.php" enctype="multipart/form-data" onsubmit="return validarDatos()">
+        <form class="form-horizontal" method="POST" action="usuario_add.php" enctype="multipart/form-data"
+          onsubmit="return validarDatos()">
 
           <div class="form-group">
             <label for="nombre" class="col-sm-3 control-label">Nombres</label>
@@ -17,7 +18,7 @@
               <input type="text" class="form-control" id="nombre" name="nombre" required>
             </div>
           </div>
-          
+
           <div class="form-group">
             <label for="apellido" class="col-sm-3 control-label">Apellidos</label>
             <div class="col-sm-9">
@@ -76,7 +77,7 @@
             <label for="roles" class="col-sm-3 control-label">Departamento</label>
 
             <div class="col-sm-9">
-              <select class="form-control select2" name="id_departamento" required>
+              <select class="form-control select2" name="id_departamento" id="id_departamento" required>
 
 
                 <?php
@@ -98,16 +99,7 @@
             <label for="plazas" class="col-sm-3 control-label">Plaza</label>
 
             <div class="col-sm-9">
-              <select class="form-control select2" name="id_plaza" required>
-
-
-                <?php
-
-                $queryc = mysqli_query($conn, "SELECT * FROM  plaza where estado = 1") or die(mysqli_error($conn));
-                while ($rowc = mysqli_fetch_array($queryc)) {
-                  ?>
-                  <option value="<?php echo $rowc['id_plaza']; ?>"><?php echo $rowc['nombre']; ?></option>
-                <?php } ?>
+              <select class="form-control select2" name="id_plaza" id="id_plaza" required>
               </select>
 
 
@@ -180,18 +172,20 @@
               <input type="file" name="imagen" id="imagen">
             </div>
           </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i>
-        Cerrar</button>
-      <button type="submit" class="btn btn-primary btn-flat" name="add"><i class="fa fa-save"></i> GUARDAR</button>
-      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i
+            class="fa fa-close"></i>
+          Cerrar</button>
+        <button type="submit" class="btn btn-primary btn-flat" name="add"><i class="fa fa-save"></i> GUARDAR</button>
+        </form>
+      </div>
     </div>
   </div>
 </div>
-</div>
 
 <script>
+  // Validacion de input de salario
   function validarDatos() {
     var salario = document.getElementById("salario").value;
     if (salario <= 243) {
@@ -200,4 +194,19 @@
     }
     return true;
   }
+
+  // Lista desplegable de plazas
+  document.getElementById('id_departamento').addEventListener('change', function () {
+    var id_departamento = this.value;
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'modal/fetch_plazas.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        document.getElementById('id_plaza').innerHTML = xhr.responseText;
+      }
+    };
+    xhr.send('id_departamento=' + id_departamento);
+  });
+
 </script>
