@@ -67,6 +67,7 @@
                     <th>Fecha Nacimiento</th>
                     <th>Dirección</th>
                     <th>Nacionalidad</th>
+                    <th>Plaza</th>
                     <th>Salario</th>
                     <th>Opciones</th>
                   </thead>
@@ -74,9 +75,11 @@
                   <tbody>
                     <?php
                     // Consulta para obtener los datos de usuario y el nombre del rol
-                    $sql = "SELECT usuario.*, roles.nombre_rol, usuario.id AS id_user 
+                    $sql = "SELECT usuario.*, roles.nombre_rol, plaza.nombre AS plaza, usuario.id AS id_user 
                             FROM usuario 
-                            JOIN roles ON usuario.id_rol = roles.id_rol WHERE usuario.estado = 1";
+                            JOIN roles ON usuario.id_rol = roles.id_rol 
+                            LEFT JOIN plaza ON usuario.id_plaza = plaza.id_plaza
+                            WHERE usuario.estado = 1";
 
                     // Ejecutar la consulta
                     $query = $conn->query($sql);
@@ -113,6 +116,7 @@
                         <td><?php echo $row['fecha_nacimiento']; ?></td>
                         <td><?php echo $row['direccion']; ?></td>
                         <td><?php echo $row['nacionalidad']; ?></td>
+                        <td><?php echo $row['plaza']; ?></td>
                         <td><?php echo $row['salario']; ?></td>
 
                         <!-- Opciones para editar/eliminar -->
