@@ -3,7 +3,7 @@
 
 $dbuser = 'root';
 $dbpass = '';
-$dbname = 'sip';
+$dbname = 'sip_db';
 
 	$conn = new mysqli('localhost', $dbuser, $dbpass, $dbname);
 

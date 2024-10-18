@@ -13,6 +13,7 @@ $fecha_nacimiento = $_POST['fecha_nacimiento'];
 $direccion = $_POST['direccion'];
 $nacionalidad = $_POST['nacionalidad'];
 $salario = $_POST['salario'];
+$id_plaza = $_POST['id_plaza'];
 $id_departamento = $_POST['id_departamento'];
 $dui = $_POST['dui'];
 $id_rol = $_POST['id_rol'];
@@ -51,18 +52,14 @@ if (!empty($_FILES['imagen']['name'])) {
 
 	if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file)) {
 		$img = basename($_FILES["imagen"]["name"]);
-		mysqli_query($conn, "UPDATE usuario SET usuario='$usuario', imagen='$img', nombre='$nombre', apellido='$apellido', telefono='$telefono', correo='$correo', fecha_nacimiento='$fecha_nacimiento', direccion='$direccion', nacionalidad='$nacionalidad', salario='$salario', id_departamento='$id_departamento', dui='$dui', id_rol='$id_rol' WHERE id='$cid'") or die(mysqli_error($conn));
-
-		echo "<script type='text/javascript'>alert('Actualizado correctamente!');</script>";
+		mysqli_query($conn, "UPDATE usuario SET usuario='$usuario', imagen='$img', nombre='$nombre', apellido='$apellido', telefono='$telefono', correo='$correo', fecha_nacimiento='$fecha_nacimiento', direccion='$direccion', nacionalidad='$nacionalidad', salario='$salario', id_departamento='$id_departamento', dui='$dui', id_rol='$id_rol', id_plaza='$id_plaza' WHERE id='$cid'") or die(mysqli_error($conn));
 
 		echo "<script>document.location='usuario.php'</script>";
 	} else {
 		echo "No se pudo subir.";
 	}
 } else {
-	mysqli_query($conn, "UPDATE usuario SET usuario='$usuario', nombre='$nombre', apellido='$apellido', telefono='$telefono', correo='$correo', fecha_nacimiento='$fecha_nacimiento', direccion='$direccion', nacionalidad='$nacionalidad', salario='$salario', id_departamento='$id_departamento', dui='$dui', id_rol='$id_rol' WHERE id='$cid'") or die(mysqli_error($conn));
-
-	echo "<script type='text/javascript'>alert('Actualizado correctamente!');</script>";
+	mysqli_query($conn, "UPDATE usuario SET usuario='$usuario', nombre='$nombre', apellido='$apellido', telefono='$telefono', correo='$correo', fecha_nacimiento='$fecha_nacimiento', direccion='$direccion', nacionalidad='$nacionalidad', salario='$salario', id_departamento='$id_departamento', dui='$dui', id_rol='$id_rol' , id_plaza='$id_plaza' WHERE id='$cid'") or die(mysqli_error($conn));
 
 	echo "<script>document.location='usuario.php'</script>";
 }

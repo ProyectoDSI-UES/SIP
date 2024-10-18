@@ -8,7 +8,8 @@
         <h4 class="modal-title"><b>Agregar empleado</b></h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" method="POST" action="usuario_add.php" enctype="multipart/form-data">
+        <form class="form-horizontal" method="POST" action="usuario_add.php" enctype="multipart/form-data"
+          onsubmit="return validarDatos()">
 
           <div class="form-group">
             <label for="nombre" class="col-sm-3 control-label">Nombres</label>
@@ -17,7 +18,7 @@
               <input type="text" class="form-control" id="nombre" name="nombre" required>
             </div>
           </div>
-          
+
           <div class="form-group">
             <label for="apellido" class="col-sm-3 control-label">Apellidos</label>
             <div class="col-sm-9">
@@ -26,16 +27,18 @@
           </div>
 
           <div class="form-group">
-              <label for="dui" class="col-sm-3 control-label">DUI</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" id="dui" name="dui" required>
-              </div>
+            <label for="dui" class="col-sm-3 control-label">DUI</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="dui" name="dui" required pattern="\d{8}"
+                title="Debe ser un número de 8 dígitos">
             </div>
+          </div>
 
           <div class="form-group">
             <label for="telefono" class="col-sm-3 control-label">Teléfono</label>
             <div class="col-sm-9">
-              <textarea class="form-control" name="telefono" id="telefono"></textarea>
+              <textarea class="form-control" name="telefono" id="telefono" required pattern="\d{8}"
+                title="Debe ser un número de 8 dígitos"></textarea>
             </div>
           </div>
 
@@ -43,14 +46,14 @@
             <label for="correo" class="col-sm-3 control-label">Correo</label>
 
             <div class="col-sm-9">
-              <input type="email" class="form-control" id="correo" name="correo">
+              <input type="email" class="form-control" id="correo" name="correo" required>
             </div>
           </div>
           <div class="form-group">
             <label for="fecha_nacimiento" class="col-sm-3 control-label">Fecha nacimiento</label>
 
             <div class="col-sm-9">
-              <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento">
+              <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
             </div>
           </div>
 
@@ -58,7 +61,7 @@
             <label for="direccion" class="col-sm-3 control-label">Dirección</label>
 
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="direccion" name="direccion">
+              <input type="text" class="form-control" id="direccion" name="direccion" required>
             </div>
           </div>
 
@@ -66,14 +69,48 @@
             <label for="nacionalidad" class="col-sm-3 control-label">Nacionalidad</label>
 
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="nacionalidad" name="nacionalidad">
+              <input type="text" class="form-control" id="nacionalidad" name="nacionalidad" required>
             </div>
           </div>
+
+          <div class="form-group">
+            <label for="roles" class="col-sm-3 control-label">Departamento</label>
+
+            <div class="col-sm-9">
+              <select class="form-control select2" name="id_departamento" id="id_departamento" required>
+
+
+                <?php
+
+                $queryc = mysqli_query($conn, "SELECT * FROM  departamento  ") or die(mysqli_error($conn));
+                while ($rowc = mysqli_fetch_array($queryc)) {
+                  ?>
+                  <option value="<?php echo $rowc['id_departamento']; ?>"><?php echo $rowc['nombre_departamento']; ?>
+                  </option>
+                <?php } ?>
+              </select>
+
+
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="plazas" class="col-sm-3 control-label">Plaza</label>
+
+            <div class="col-sm-9">
+              <select class="form-control select2" name="id_plaza" id="id_plaza" required>
+              </select>
+
+
+            </div>
+          </div>
+
           <div class="form-group">
             <label for="salario" class="col-sm-3 control-label">Salario</label>
 
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="salario" name="salario">
+              <input type="text" class="form-control" id="salario" name="salario" required>
             </div>
           </div>
 
@@ -81,7 +118,7 @@
             <label for="usuario" class="col-sm-3 control-label">Usuario</label>
 
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="usuario" name="usuario">
+              <input type="text" class="form-control" id="usuario" name="usuario" required>
             </div>
           </div>
 
@@ -89,7 +126,7 @@
             <label for="password" class="col-sm-3 control-label">Contraseña</label>
 
             <div class="col-sm-9">
-              <input type="password" class="form-control" id="password" name="password">
+              <input type="password" class="form-control" id="password" name="password" required>
             </div>
           </div>
 
@@ -109,7 +146,7 @@
                 <?php
                 $query_roles = mysqli_query($conn, "SELECT * FROM roles") or die(mysqli_error($conn));
                 while ($row_roles = mysqli_fetch_array($query_roles)) {
-                ?>
+                  ?>
                   <option value="<?php echo $row_roles['id_rol']; ?>"><?php echo $row_roles['nombre_rol']; ?></option>
                 <?php } ?>
               </select>
@@ -126,25 +163,7 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="roles" class="col-sm-3 control-label">Departamento</label>
 
-            <div class="col-sm-9">
-              <select class="form-control select2" name="id_departamento" required>
-
-
-                <?php
-
-                $queryc = mysqli_query($conn, "SELECT * FROM  departamento  ") or die(mysqli_error($conn));
-                while ($rowc = mysqli_fetch_array($queryc)) {
-                ?>
-                  <option value="<?php echo $rowc['id_departamento']; ?>"><?php echo $rowc['nombre_departamento']; ?></option>
-                <?php } ?>
-              </select>
-
-
-            </div>
-          </div>
 
           <div class="form-group">
             <label for="imagen" class="col-sm-3 control-label">Foto</label>
@@ -155,10 +174,39 @@
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Cerrar</button>
+        <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"><i
+            class="fa fa-close"></i>
+          Cerrar</button>
         <button type="submit" class="btn btn-primary btn-flat" name="add"><i class="fa fa-save"></i> GUARDAR</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  // Validacion de input de salario
+  function validarDatos() {
+    var salario = document.getElementById("salario").value;
+    if (salario <= 243) {
+      alert("El salario debe ser mayor a 243.");
+      return false;
+    }
+    return true;
+  }
+
+  // Lista desplegable de plazas
+  document.getElementById('id_departamento').addEventListener('change', function () {
+    var id_departamento = this.value;
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'modal/fetch_plazas.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        document.getElementById('id_plaza').innerHTML = xhr.responseText;
+      }
+    };
+    xhr.send('id_departamento=' + id_departamento);
+  });
+
+</script>
