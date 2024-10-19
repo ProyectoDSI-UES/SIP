@@ -29,16 +29,15 @@
           <div class="form-group">
             <label for="dui" class="col-sm-3 control-label">DUI</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="dui" name="dui" required pattern="\d{8}"
-                title="Debe ser un número de 8 dígitos">
+              <input type="text" class="form-control" id="dui" name="dui" placeholder="00000000-0" maxlength="10">
             </div>
           </div>
 
           <div class="form-group">
             <label for="telefono" class="col-sm-3 control-label">Teléfono</label>
             <div class="col-sm-9">
-              <textarea class="form-control" name="telefono" id="telefono" required pattern="\d{8}"
-                title="Debe ser un número de 8 dígitos"></textarea>
+              <input class="form-control" name="telefono" id="telefono" required pattern="\d{8}"
+                title="Debe ser un número de 8 dígitos" placeholder="00000000" maxlength="8"></input>
             </div>
           </div>
 
@@ -84,7 +83,7 @@
 
                 $queryc = mysqli_query($conn, "SELECT * FROM  departamento  ") or die(mysqli_error($conn));
                 while ($rowc = mysqli_fetch_array($queryc)) {
-                  ?>
+                ?>
                   <option value="<?php echo $rowc['id_departamento']; ?>"><?php echo $rowc['nombre_departamento']; ?>
                   </option>
                 <?php } ?>
@@ -146,7 +145,7 @@
                 <?php
                 $query_roles = mysqli_query($conn, "SELECT * FROM roles") or die(mysqli_error($conn));
                 while ($row_roles = mysqli_fetch_array($query_roles)) {
-                  ?>
+                ?>
                   <option value="<?php echo $row_roles['id_rol']; ?>"><?php echo $row_roles['nombre_rol']; ?></option>
                 <?php } ?>
               </select>
@@ -184,29 +183,4 @@
   </div>
 </div>
 
-<script>
-  // Validacion de input de salario
-  function validarDatos() {
-    var salario = document.getElementById("salario").value;
-    if (salario <= 243) {
-      alert("El salario debe ser mayor a 243.");
-      return false;
-    }
-    return true;
-  }
-
-  // Lista desplegable de plazas
-  document.getElementById('id_departamento').addEventListener('change', function () {
-    var id_departamento = this.value;
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'modal/fetch_plazas.php', true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        document.getElementById('id_plaza').innerHTML = xhr.responseText;
-      }
-    };
-    xhr.send('id_departamento=' + id_departamento);
-  });
-
-</script>
+<script src="./validaciones.js"></script>
