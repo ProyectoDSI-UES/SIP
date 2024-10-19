@@ -204,6 +204,32 @@
                       </div>
                       <div class="col-md-2 btn-print">
                         <div class="form-group">
+                          <label for="date">Teléfono</label>
+
+                        </div><!-- /.form group -->
+                      </div>
+                      <div class="col-md-4 btn-print">
+                        <div class="form-group">
+
+                          <input type="text" class="form-control" id="telefono" name="telefono" maxlength="8" value="<?php echo $row['telefono']; ?>">
+                        </div>
+                      </div>
+                      <div class="col-md-4 btn-print">
+
+                      </div>
+                    </div>
+
+
+
+                    <div class="row">
+                      <div class="col-md-1 btn-print">
+                        <div class="form-group">
+
+
+                        </div><!-- /.form group -->
+                      </div>
+                      <div class="col-md-2 btn-print">
+                        <div class="form-group">
                           <label for="date">Usuario</label>
 
                         </div><!-- /.form group -->
@@ -246,32 +272,6 @@
                         </div>
                       </div>
                       <div class="col-md-4 btn-print">
-                      </div>
-                    </div>
-
-
-
-                    <div class="row">
-                      <div class="col-md-1 btn-print">
-                        <div class="form-group">
-
-
-                        </div><!-- /.form group -->
-                      </div>
-                      <div class="col-md-2 btn-print">
-                        <div class="form-group">
-                          <label for="date">Teléfono</label>
-
-                        </div><!-- /.form group -->
-                      </div>
-                      <div class="col-md-4 btn-print">
-                        <div class="form-group">
-
-                          <input type="text" class="form-control" id="telefono" name="telefono" value="<?php echo $row['telefono']; ?>">
-                        </div>
-                      </div>
-                      <div class="col-md-4 btn-print">
-
                       </div>
                     </div>
 
@@ -403,35 +403,6 @@
                     </div>
 
 
-                    <div class="row">
-                      <div class="col-md-1 btn-print">
-                        <div class="form-group">
-                        </div>
-                      </div>
-                      <div class="col-md-2 btn-print">
-                        <div class="form-group">
-                          <label for="id_rol">Plaza</label>
-                        </div>
-                      </div>
-                      <div class="col-md-4 btn-print">
-                        <div class="form-group">
-                          <select class="form-control select2" name="id_plaza" required>
-                            <?php
-                            $queryPlaza = mysqli_query($conn, "SELECT * FROM plaza WHERE estado = 1") or die(mysqli_error($conn));
-                            while ($rowPlaza = mysqli_fetch_array($queryPlaza)) {
-                            ?>
-                              <option value="<?php echo $rowPlaza ['id_plaza']; ?>" <?php if ($row['id_plaza'] == $rowPlaza['id_plaza']) {
-                                                                                  echo "selected";
-                                                                                } ?>><?php echo $rowPlaza['nombre']; ?></option>
-                            <?php } ?>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-md-4 btn-print">
-                      </div>
-                    </div>
-
-
 
                     <div class="row">
                       <div class="col-md-1 btn-print">
@@ -447,21 +418,41 @@
                       </div>
                       <div class="col-md-4 btn-print">
                         <div class="form-group">
-                          <select class="form-control select2" name="id_departamento" required>
+                          <select class="form-control select2" name="id_departamento" id="id_departamento" required>
 
                             <?php
 
-                            $queryc = mysqli_query($conn, "select * from departamento") or die(mysqli_error($conn));
+                            $queryc = mysqli_query($conn, "SELECT * FROM  departamento  ") or die(mysqli_error($conn));
                             while ($rowc = mysqli_fetch_array($queryc)) {
                             ?>
-                              <option value="<?php echo $rowc['id_departamento']; ?>" <?php if ($id_departamento == $rowc['id_departamento']) {
-                                                                                        echo "selected";
-                                                                                      } ?>><?php echo $rowc['nombre_departamento']; ?></option>
-
+                              <option value="<?php echo $rowc['id_departamento']; ?>"><?php echo $rowc['nombre_departamento']; ?>
+                              </option>
                             <?php } ?>
                           </select>
                         </div>
 
+                      </div>
+                    </div>
+
+
+
+                    <div class="row">
+                      <div class="col-md-1 btn-print">
+                        <div class="form-group">
+                        </div>
+                      </div>
+                      <div class="col-md-2 btn-print">
+                        <div class="form-group">
+                          <label for="id_rol">Plaza</label>
+                        </div>
+                      </div>
+                      <div class="col-md-4 btn-print">
+                        <div class="form-group">
+                          <select class="form-control select2" name="id_plaza" id="id_plaza" required>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-4 btn-print">
                       </div>
                     </div>
 
@@ -511,6 +502,7 @@
     <?php include 'modal/aplicacion_modal.php'; ?>
   </div>
   <?php include '../includes/scripts.php'; ?>
+  <script src="./validaciones.js"></script>
 
 </body>
 
