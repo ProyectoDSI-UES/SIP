@@ -88,7 +88,7 @@
                       <div class="col-md-4 btn-print">
                         <div class="form-group">
 
-                          <input type="text" class="form-control" id="name" name="nombre_departamento" value="<?php echo $row['nombre_departamento']; ?>">
+                          <input type="text" class="form-control" id="name" name="nombre_departamento" value="<?php echo $row['nombre_departamento']; ?>" required>
                         </div>
                       </div>
                       <div class="col-md-4 btn-print">
@@ -112,7 +112,7 @@
                       </div>
                       <div class="col-md-4 btn-print">
                         <div class="form-group">
-                          <textarea class="form-control" id="roles" name="descripcion"><?php echo $row['descripcion']; ?></textarea>
+                          <textarea class="form-control" id="roles" name="descripcion" required><?php echo $row['descripcion']; ?></textarea>
 
                         </div>
                       </div>
