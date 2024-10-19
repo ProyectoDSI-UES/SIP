@@ -84,7 +84,7 @@
                                             <div class="col-md-4 btn-print">
                                                 <div class="form-group">
 
-                                                    <input type="text" class="form-control" id="name" name="nombre_rol" value="<?php echo $row['nombre_rol']; ?>">
+                                                    <input type="text" class="form-control" id="nombre_rol" name="nombre_rol" value="<?php echo $row['nombre_rol']; ?>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4 btn-print">
