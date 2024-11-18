@@ -12,7 +12,6 @@ $correo = $_POST['correo'];
 $fecha_nacimiento = $_POST['fecha_nacimiento'];
 $direccion = $_POST['direccion'];
 $nacionalidad = $_POST['nacionalidad'];
-$salario = $_POST['salario'];
 $id_departamento = $_POST['id_departamento'];
 $id_plaza = $_POST['id_plaza'];
 $dui = $_POST['dui'];
@@ -53,8 +52,8 @@ if ($password == $password2) {
 				$salt = "a1Bz20ydqelm8m1wql";
 				$pass = $salt . $pass;
 
-				mysqli_query($conn, "INSERT INTO usuario(usuario,password,imagen,nombre,apellido,telefono,correo,fecha_nacimiento,direccion,nacionalidad,salario,id_departamento,dui, estado, id_rol, id_plaza)
-				VALUES('$usuario','$pass','$img','$nombre','$apellido','$telefono','$correo','$fecha_nacimiento','$direccion','$nacionalidad','$salario','$id_departamento','$dui','$estado','$id_rol','$id_plaza')") or die(mysqli_error($conn));
+				mysqli_query($conn, "INSERT INTO usuario(usuario,password,imagen,nombre,apellido,telefono,correo,fecha_nacimiento,direccion,nacionalidad,id_departamento,dui, estado, id_rol, id_plaza)
+				VALUES('$usuario','$pass','$img','$nombre','$apellido','$telefono','$correo','$fecha_nacimiento','$direccion','$nacionalidad','$id_departamento','$dui','$estado','$id_rol','$id_plaza')") or die(mysqli_error($conn));
 
 				echo "<script>document.location='usuario.php'</script>";
 			} else {
@@ -65,8 +64,8 @@ if ($password == $password2) {
 			$salt = "a1Bz20ydqelm8m1wql";
 			$pass = $salt . $pass;
 
-			mysqli_query($conn, "INSERT INTO usuario(usuario,password,imagen,nombre,apellido,telefono,correo,fecha_nacimiento,direccion,nacionalidad,salario,id_departamento, dui, estado, id_rol, id_plaza)
-				VALUES('$usuario','$pass','','$nombre','$apellido','$telefono','$correo','$fecha_nacimiento','$direccion','$nacionalidad','$salario','$id_departamento','$dui','$estado','$id_rol','$id_plaza')") or die(mysqli_error($conn));
+			mysqli_query($conn, "INSERT INTO usuario(usuario,password,imagen,nombre,apellido,telefono,correo,fecha_nacimiento,direccion,nacionalidad,id_departamento, dui, estado, id_rol, id_plaza)
+				VALUES('$usuario','$pass','','$nombre','$apellido','$telefono','$correo','$fecha_nacimiento','$direccion','$nacionalidad','$id_departamento','$dui','$estado','$id_rol','$id_plaza')") or die(mysqli_error($conn));
 
 			echo "<script>document.location='usuario.php'</script>";
 		}

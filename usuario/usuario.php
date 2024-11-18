@@ -68,7 +68,6 @@
                     <th>Dirección</th>
                     <th>Nacionalidad</th>
                     <th>Plaza</th>
-                    <th>Salario</th>
                     <th>Opciones</th>
                   </thead>
 
@@ -117,7 +116,6 @@
                         <td><?php echo $row['direccion']; ?></td>
                         <td><?php echo $row['nacionalidad']; ?></td>
                         <td><?php echo $row['plaza']; ?></td>
-                        <td><?php echo $row['salario']; ?></td>
 
                         <!-- Opciones para editar/eliminar -->
                         <td>
