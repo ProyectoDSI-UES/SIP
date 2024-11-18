@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-10-2024 a las 18:42:48
+-- Tiempo de generación: 18-11-2024 a las 22:52:56
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -51,9 +51,33 @@ CREATE TABLE `departamento` (
 --
 
 INSERT INTO `departamento` (`id_departamento`, `nombre_departamento`, `descripcion`) VALUES
-(3, 'Informatica', 'Es el encargado del departamento TI en general, llevando a cabo tareas de informática específicas en la rama.'),
-(4, 'archivos', 'Manejo de los archivos de la compañía.'),
-(5, 'recursos humanos', '');
+(3, 'Informatica', 'Es el encargado del departamento TI en general, llevando a cabo tareas de informatica especificas en la rama.'),
+(4, 'Archivos', 'Manejo de los archivos de la compaÃ±Ã­a.'),
+(5, 'Recursos Humanos', 'Personal encargado de realizar gestiones relacionadas al contrato, contrataciÃ³n, etc.');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `modulos`
+--
+
+CREATE TABLE `modulos` (
+  `id_modulo` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `ruta` varchar(200) NOT NULL,
+  `icono` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `modulos`
+--
+
+INSERT INTO `modulos` (`id_modulo`, `nombre`, `ruta`, `icono`) VALUES
+(1, 'Usuarios', '../usuario/usuario.php', 'handshake-o'),
+(2, 'Roles', '../roles/roles.php', 'suitcase'),
+(3, 'Departamento', '../departamento/departamento.php', 'group'),
+(4, 'Plaza', '../plaza/plaza.php', 'sitemap'),
+(5, 'Asistencia', '../asistencia/subir_asistencia.php', 'suitcase');
 
 -- --------------------------------------------------------
 
@@ -108,8 +132,34 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id_rol`, `nombre_rol`, `estado`, `descripcion`) VALUES
-(1, 'administrador', 1, 'Acceso sin restricciones a los modulos del sistema de informacion de personal'),
-(2, 'empleado', 1, 'El empleado cuenta con acceso restringido al sistema.');
+(1, 'Administrador', 1, 'Acceso sin restricciones a los modulos del sistema de informacion de personal'),
+(2, 'Empleado', 1, 'El empleado cuenta con acceso restringido al sistema.'),
+(3, 'Recursos humanos', 1, 'Personal que realiza la gestiÃ³n del personal.'),
+(4, 'Electricidad', 1, 'Personal encargada de mantener en funcionamiento los sistema electricos');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rol_modulos`
+--
+
+CREATE TABLE `rol_modulos` (
+  `id_rol` int(11) NOT NULL,
+  `id_modulo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `rol_modulos`
+--
+
+INSERT INTO `rol_modulos` (`id_rol`, `id_modulo`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(2, 4),
+(3, 4);
 
 -- --------------------------------------------------------
 
@@ -142,7 +192,6 @@ CREATE TABLE `usuario` (
   `fecha_nacimiento` varchar(200) NOT NULL,
   `direccion` varchar(200) NOT NULL,
   `nacionalidad` varchar(200) NOT NULL,
-  `salario` float NOT NULL,
   `estado` tinyint(1) NOT NULL,
   `id_departamento` int(200) NOT NULL,
   `id_plaza` int(11) DEFAULT NULL
@@ -152,12 +201,14 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `usuario`, `password`, `id_rol`, `imagen`, `nombre`, `apellido`, `dui`, `telefono`, `correo`, `fecha_nacimiento`, `direccion`, `nacionalidad`, `salario`, `estado`, `id_departamento`) VALUES
-(5, 'admin', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', 1, 'avatar_f.png', 'Sandra', 'Álvarez', '33222313-6', '63424342', 'sandra@gmail.com', '1990-01-01', '8501 NW 17TH ST STE 120', 'Salvadoreño', 5000, 1, 3),
-(15, 'sandra', 'a1Bz20ydqelm8m1wql19a6733a9b71ad5413ad1e2e9caeb8e6', 2, 'avatar_f.png', 'Sandra', 'Álvarez', '123456789', '5555-5555', 'sandra@gmail.com', '1990-01-01', '8501 NW 17TH ST STE 120', 'El Salvador', 5000, 1, 5),
-(16, 'noe', 'a1Bz20ydqelm8m1wql4cddb5be1b125edbf1a5835a1e93d810', 1, 'avatar_m2.png', 'Noe', 'Cordova', '11223344-5', '2222-2222', 'noe@gmail.com', '1995-01-01', '8501 NW 17TH ST STE 120', 'El Salvador', 3000, 1, 3),
-(17, 'kevin.melgar', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', 1, 'C _Users_kevin.melgar_Documents_Proyectos_support-table_MesaSoporteANDA_MesaSoporteANDA_Adjuntos_Tech TEC_2024_4_10651_2024415_standoge-anda-bw.jpg', 'Stanley', 'Melgar', '123455678', '12345677', 'mr21083@ues.edu.sv', '2024-10-01', 'Dirección ficticia ', 'Salvadoreño ', 100, 1, 4),
-(19, 'usuario', 'a1Bz20ydqelm8m1wql202cb962ac59075b964b07152d234b70', 1, '', 'nombre1', 'apellido1', '1a', 'telefono', 'correo@correo', '2024-10-01', 'direccion', 'nacionalidad', 1, 0, 3);
+INSERT INTO `usuario` (`id`, `usuario`, `password`, `id_rol`, `imagen`, `nombre`, `apellido`, `dui`, `telefono`, `correo`, `fecha_nacimiento`, `direccion`, `nacionalidad`, `estado`, `id_departamento`, `id_plaza`) VALUES
+(5, 'admin', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', 1, 'avatar_f.png', 'Sandra', 'Álvarez', '33222313-6', '63424342', 'sandra@gmail.com', '1990-01-01', '8501 NW 17TH ST STE 120', 'Salvadoreño', 1, 3, NULL),
+(15, 'sandra', 'a1Bz20ydqelm8m1wql19a6733a9b71ad5413ad1e2e9caeb8e6', 2, 'avatar_f.png', 'Sandra', 'Álvarez', '123456789', '5555-555', 'sandra@gmail.com', '1990-01-01', '8501 NW 17TH ST STE 120', 'El Salvador', 1, 5, NULL),
+(16, 'noe', 'a1Bz20ydqelm8m1wql4cddb5be1b125edbf1a5835a1e93d810', 1, 'avatar_m2.png', 'Noe', 'Cordova', '11223344-5', '2222-222', 'noe@gmail.com', '1995-01-01', '8501 NW 17TH ST STE 120', 'El Salvador', 1, 3, NULL),
+(17, 'kevin.melgar', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', 1, 'C _Users_kevin.melgar_Documents_Proyectos_support-table_MesaSoporteANDA_MesaSoporteANDA_Adjuntos_Tech TEC_2024_4_10651_2024415_standoge-anda-bw.jpg', 'Stanley', 'Melgar', '123455678', '12345677', 'mr21083@ues.edu.sv', '2024-10-01', 'Dirección ficticia ', 'Salvadoreño ', 1, 4, NULL),
+(19, 'usuario', 'a1Bz20ydqelm8m1wql202cb962ac59075b964b07152d234b70', 1, '', 'nombre1', 'apellido1', '1a', 'telefono', 'correo@correo', '2024-10-01', 'direccion', 'nacionalidad', 0, 3, NULL),
+(20, 'Alexis', 'a1Bz20ydqelm8m1wql81dc9bdb52d04dc20036dbd8313ed055', 2, 'profile.jpg', 'Alexis', 'PÃ©rez', '23443254-3', '77644345', 'alexis@gmail.com', '1998-10-24', 'Santa MarÃ­a', 'SalvadoreÃ±o', 1, 4, 1),
+(21, 'Jorge', 'a1Bz20ydqelm8m1wql81dc9bdb52d04dc20036dbd8313ed055', 2, 'Pngtreeâ€”users vector.png', 'Jorge', 'Martinez', '54323423-4', '65566532', 'jorge@gmail.com', '2000-11-15', 'Los almendros', 'SalvadoreÃ±o', 0, 4, 1);
 
 --
 -- Índices para tablas volcadas
@@ -175,6 +226,12 @@ ALTER TABLE `asistencia`
 --
 ALTER TABLE `departamento`
   ADD PRIMARY KEY (`id_departamento`);
+
+--
+-- Indices de la tabla `modulos`
+--
+ALTER TABLE `modulos`
+  ADD PRIMARY KEY (`id_modulo`);
 
 --
 -- Indices de la tabla `permiso`
@@ -196,6 +253,13 @@ ALTER TABLE `plaza`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id_rol`);
+
+--
+-- Indices de la tabla `rol_modulos`
+--
+ALTER TABLE `rol_modulos`
+  ADD PRIMARY KEY (`id_rol`,`id_modulo`),
+  ADD KEY `fk_rol_modulo_modulo` (`id_modulo`);
 
 --
 -- Indices de la tabla `tipo_permiso`
@@ -229,6 +293,12 @@ ALTER TABLE `departamento`
   MODIFY `id_departamento` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de la tabla `modulos`
+--
+ALTER TABLE `modulos`
+  MODIFY `id_modulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
@@ -238,13 +308,13 @@ ALTER TABLE `permiso`
 -- AUTO_INCREMENT de la tabla `plaza`
 --
 ALTER TABLE `plaza`
-  MODIFY `id_plaza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_plaza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id_rol` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_rol` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_permiso`
@@ -256,7 +326,7 @@ ALTER TABLE `tipo_permiso`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Restricciones para tablas volcadas
@@ -280,6 +350,13 @@ ALTER TABLE `permiso`
 --
 ALTER TABLE `plaza`
   ADD CONSTRAINT `fk_id_departamento` FOREIGN KEY (`id_departamento`) REFERENCES `departamento` (`id_departamento`);
+
+--
+-- Filtros para la tabla `rol_modulos`
+--
+ALTER TABLE `rol_modulos`
+  ADD CONSTRAINT `fk_rol_modulo_modulo` FOREIGN KEY (`id_modulo`) REFERENCES `modulos` (`id_modulo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_rol_modulo_rol` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`
