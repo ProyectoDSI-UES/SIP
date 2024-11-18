@@ -16,9 +16,7 @@
       <li class="header">MENÚ</li>
       <li class=""><a href="../includes/home.php"><i class="fa fa-dashboard"></i> <span>Inicio</span></a></li>
 
-
       <?php
-
       // Obtener el ID del usuario actual
       $id_empleado = $user['id'];
 
@@ -32,63 +30,39 @@
       $result = $stmt->get_result();
       $row = $result->fetch_assoc();
 
-      // Almacena el nombre del rol
+      // Almacenar el nombre del rol
       $rol_usuario = $row['nombre_rol'];
 
-      // Mostrar el menú según el rol del usuario
-      if ($rol_usuario == "administrador") {
+      // Obtener los módulos asociados al rol
+      $sql_modulos = "SELECT modulos.id_modulo, modulos.nombre, modulos.icono, modulos.ruta
+                      FROM modulos
+                      JOIN rol_modulos ON modulos.id_modulo = rol_modulos.id_modulo
+                      JOIN roles ON rol_modulos.id_rol = roles.id_rol
+                      WHERE roles.nombre_rol = ?";
+      $stmt_modulos = $conn->prepare($sql_modulos);
+      $stmt_modulos->bind_param('s', $rol_usuario); // 's' indica que es un string
+      $stmt_modulos->execute();
+      $result_modulos = $stmt_modulos->get_result();
 
+      // Mostrar los módulos en el menú
       ?>
 
-        <li class="header">GESTIÓN</li>
-
-        <li class="">
-          <a href="../usuario/usuario.php">
-            <i class="fa fa-handshake-o"></i>
-            <span>Usuarios</span>
-          </a>
-        </li>
-
-
-        <li class="">
-          <a href="../departamento/departamento.php">
-            <i class="fa fa-group"></i>
-            <span>Departamento</span>
-          </a>
-        </li>
-
-
-        <li class="">
-          <a href="../roles/roles.php">
-            <i class="fa fa-suitcase"></i>
-            <span>Roles</span>
-          </a>
-        </li>
-
+      <li class="header"><?php echo strtoupper($rol_usuario); ?> MENU</li>
 
       <?php
-      // En caso de que el usuario tenga rol de empleado
-      } elseif ($rol_usuario == "empleado") {
-      ?>
-
-        <li class="header">GESTIÓN</li>
-        <li class="">
-          <a href="#">
-            <i class="fa fa-home"></i>
-            <span>Asistencias</span>
-          </a>
-        </li>
-    </ul>
-    </li>
-
-  <?php
-
-        # code...
+      // Si el rol tiene módulos, los mostramos
+      while ($modulo = $result_modulos->fetch_assoc()) {
+        // Mostrar el nombre del módulo con el icono y la ruta correspondiente
+        echo '<li class="">
+                  <a href="' . $modulo['ruta'] . '">
+                    <i class="fa fa-' . $modulo['icono'] . '"></i>
+                    <span>' . $modulo['nombre'] . '</span>
+                  </a>
+                </li>';
       }
-  ?>
 
-
-  </ul>
+      ?>
+    </ul>
   </section>
   <!-- /.sidebar -->
 </aside>
