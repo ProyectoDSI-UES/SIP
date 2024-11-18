@@ -138,7 +138,11 @@
                       <div class="col-md-4 btn-print">
                         <div class="form-group">
 
-                          <button type="submit" class="btn btn-primary">GUARDAR</button>
+                          <button type="submit" class="btn btn-primary">ACTUALIZAR</button>
+
+                          <a href="departamento.php" class="btn btn-success">
+                            <i class="fa fa-arrow-left"></i> REGRESAR
+                          </a>
 
                         </div>
                       </div>

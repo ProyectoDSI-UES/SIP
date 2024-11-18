@@ -219,8 +219,6 @@
                       </div>
                     </div>
 
-
-
                     <div class="row">
                       <div class="col-md-1 btn-print">
                         <div class="form-group">
@@ -261,7 +259,7 @@
                         <div class="form-group">
                           <select class="form-control select2" name="id_rol" required>
                             <?php
-                            $queryRoles = mysqli_query($conn, "SELECT * FROM roles") or die(mysqli_error($conn));
+                            $queryRoles = mysqli_query($conn, "SELECT * FROM roles where estado = 1") or die(mysqli_error($conn));
                             while ($rowRol = mysqli_fetch_array($queryRoles)) {
                             ?>
                               <option value="<?php echo $rowRol['id_rol']; ?>" <?php if ($row['id_rol'] == $rowRol['id_rol']) {
@@ -377,33 +375,6 @@
                       </div>
                     </div>
 
-
-
-                    <div class="row">
-                      <div class="col-md-1 btn-print">
-                        <div class="form-group">
-
-                        </div><!-- /.form group -->
-                      </div>
-                      <div class="col-md-2 btn-print">
-                        <div class="form-group">
-                          <label for="date">Salario</label>
-
-                        </div><!-- /.form group -->
-                      </div>
-                      <div class="col-md-4 btn-print">
-                        <div class="form-group">
-
-                          <input type="text" class="form-control" id="salario" name="salario" value="<?php echo $row['salario']; ?>" required>
-                        </div>
-                      </div>
-                      <div class="col-md-4 btn-print">
-
-                      </div>
-                    </div>
-
-
-
                     <div class="row">
                       <div class="col-md-1 btn-print">
                         <div class="form-group">
@@ -419,19 +390,20 @@
                       <div class="col-md-4 btn-print">
                         <div class="form-group">
                           <select class="form-control select2" name="id_departamento" id="id_departamento" required>
-
                             <?php
-
-                            $queryc = mysqli_query($conn, "SELECT * FROM  departamento  ") or die(mysqli_error($conn));
+                            $queryc = mysqli_query($conn, "SELECT * FROM departamento;") or die(mysqli_error($conn));
                             while ($rowc = mysqli_fetch_array($queryc)) {
+                              // Comparar el id_departamento del departamento actual con el registrado
+                              $selected = ($rowc['id_departamento'] == $row['id_departamento']) ? 'selected' : '';
                             ?>
-                              <option value="<?php echo $rowc['id_departamento']; ?>"><?php echo $rowc['nombre_departamento']; ?>
+                              <option value="<?php echo $rowc['id_departamento']; ?>" <?php echo $selected; ?>>
+                                <?php echo $rowc['nombre_departamento']; ?>
                               </option>
                             <?php } ?>
                           </select>
                         </div>
-
                       </div>
+
                     </div>
 
 
@@ -443,12 +415,21 @@
                       </div>
                       <div class="col-md-2 btn-print">
                         <div class="form-group">
-                          <label for="id_rol">Plaza</label>
+                          <label for="id_plaza">Plaza</label>
                         </div>
                       </div>
                       <div class="col-md-4 btn-print">
                         <div class="form-group">
                           <select class="form-control select2" name="id_plaza" id="id_plaza" required>
+                            <?php
+                            $queryc = mysqli_query($conn, "SELECT * FROM plaza where estado = 1;") or die(mysqli_error($conn));
+                            while ($rowc = mysqli_fetch_array($queryc)) {
+                              $selected = ($rowc['id_plaza'] == $row['id_plaza']) ? 'selected' : '';
+                            ?>
+                              <option value="<?php echo $rowc['id_plaza']; ?>" <?php echo $selected; ?>>
+                                <?php echo $rowc['nombre']; ?>
+                              </option>
+                            <?php } ?>
                           </select>
                         </div>
                       </div>
@@ -456,23 +437,24 @@
                       </div>
                     </div>
 
-
-
                     <div class="row">
                       <div class="col-md-1 btn-print">
                         <div class="form-group">
-
-                        </div><!-- /.form group -->
+                        </div>
                       </div>
                       <div class="col-md-2 btn-print">
                         <div class="form-group">
 
-                        </div><!-- /.form group -->
+                        </div>
                       </div>
                       <div class="col-md-4 btn-print">
                         <div class="form-group">
 
                           <button type="submit" class="btn btn-primary">ACTUALIZAR</button>
+
+                          <a href="usuario.php" class="btn btn-success">
+                            <i class="fa fa-arrow-left"></i> REGRESAR
+                          </a>
 
                         </div>
                       </div>
@@ -486,8 +468,6 @@
                     <hr>
 
                   </form>
-
-                  <!--end of modal-->
 
                 <?php } ?>
 

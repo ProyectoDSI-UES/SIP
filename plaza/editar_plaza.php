@@ -7,10 +7,10 @@
         <?php include '../includes/navbar.php'; ?>
         <?php include '../includes/menubar.php'; ?>
         <?php
-        if (isset($_REQUEST['id_rol'])) {
-            $id_rol = $_REQUEST['id_rol'];
+        if (isset($_REQUEST['id_plaza'])) {
+            $id_plaza = $_REQUEST['id_plaza'];
         } else {
-            $id_rol = $_POST['id_rol'];
+            $id_plaza = $_POST['id_plaza'];
         }
         ?>
         <!-- Content Wrapper. Contains page content -->
@@ -18,12 +18,12 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Editar rol
+                    Editar plaza
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-                    <li>Roles</li>
-                    <li class="active">Editar rol</li>
+                    <li>Plaza</li>
+                    <li class="active">Editar plaza</li>
                 </ol>
             </section>
             <!-- Main content -->
@@ -59,102 +59,65 @@
                             <div class="box-body">
                                 <?php
 
-                                $query = mysqli_query($conn, "SELECT * FROM roles WHERE id_rol= '$id_rol'") or die(mysqli_error($conn));
+                                $query = mysqli_query($conn, "SELECT * FROM plaza WHERE id_plaza= '$id_plaza'") or die(mysqli_error($conn));
                                 while ($row = mysqli_fetch_array($query)) {
                                 ?>
 
-                                    <form class="form-horizontal" method="post" action="roles_actualizar.php" enctype='multipart/form-data'>
-                                        <input type="hidden" class="form-control" id="id_rol" name="id_rol" value="<?php echo $row['id_rol']; ?>">
-
-
+                                    <form class="form-horizontal" method="post" action="plaza_actualizar.php" enctype='multipart/form-data'>
+                                        <input type="hidden" class="form-control" id="id_plaza" name="id_plaza" value="<?php echo $row['id_plaza']; ?>">
 
                                         <!-- Campo Nombre -->
                                         <div class="row">
                                             <div class="col-md-1 btn-print">
                                                 <div class="form-group">
 
-                                                </div><!-- /.form group -->
+                                                </div>
                                             </div>
                                             <div class="col-md-2 btn-print">
                                                 <div class="form-group">
-                                                    <label for="nombre_rol">Nombre</label>
+                                                    <label for="nombre_plaza">Nombre</label>
 
-                                                </div><!-- /.form group -->
+                                                </div>
                                             </div>
                                             <div class="col-md-4 btn-print">
                                                 <div class="form-group">
 
-                                                    <input type="text" class="form-control" id="nombre_rol" name="nombre_rol" value="<?php echo $row['nombre_rol']; ?>" disabled>
+                                                    <input type="text" class="form-control" id="nombre_plaza" name="nombre_plaza" value="<?php echo $row['nombre']; ?>">
                                                 </div>
-                                            </div>
-                                            <div class="col-md-4 btn-print">
-
                                             </div>
                                         </div>
 
 
-
-                                        <!-- Campo Descripción -->
+                                        <!-- Campo Departamento -->
                                         <div class="row">
                                             <div class="col-md-1 btn-print">
                                                 <div class="form-group">
 
-                                                </div><!-- /.form group -->
+                                                </div>
                                             </div>
                                             <div class="col-md-2 btn-print">
                                                 <div class="form-group">
-                                                    <label for="descripcion">Descripción</label>
+                                                    <label for="departamento">Departamento</label>
 
-                                                </div><!-- /.form group -->
-                                            </div>
-                                            <div class="col-md-4 btn-print">
-                                                <div class="form-group">
-                                                    <textarea class="form-control" id="descripcion" name="descripcion" required><?php echo $row['descripcion']; ?></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 btn-print">
-
-                                            </div>
-                                        </div>
-
-
-                                        <!-- Campo para Seleccionar Módulos -->
-                                        <div class="row">
-                                            <div class="col-md-1 btn-print">
                                                 <div class="form-group">
-
-                                                </div><!-- /.form group -->
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="modulos">Módulos</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <?php
-                                                    // Consulta para obtener todos los módulos disponibles
-                                                    $modulos_query = mysqli_query($conn, "SELECT id_modulo, nombre FROM modulos");
-
-                                                    // Consulta para obtener los módulos asociados al rol
-                                                    $rol_modulos_query = mysqli_query($conn, "SELECT id_modulo FROM rol_modulos WHERE id_rol = '$id_rol'") or die(mysqli_error($conn));
-                                                    $rol_modulos = [];
-                                                    while ($rmod = mysqli_fetch_assoc($rol_modulos_query)) {
-                                                        $rol_modulos[] = $rmod['id_modulo'];
-                                                    }
-
-                                                    // Mostrar los módulos como checkboxes
-                                                    while ($modulo = mysqli_fetch_assoc($modulos_query)) {
-                                                        $checked = in_array($modulo['id_modulo'], $rol_modulos) ? 'checked' : '';
-                                                        echo "
-                <div class='checkbox'>
-                    <label>
-                        <input type='checkbox' name='modulos[]' value='{$modulo['id_modulo']}' $checked>
-                        {$modulo['nombre']}
-                    </label>
-                </div>";
-                                                    }
-                                                    ?>
+                                                    <select class="form-control select2" name="id_departamento" id="id_departamento" required>
+                                                        <?php
+                                                        $queryc = mysqli_query($conn, "SELECT * FROM departamento;") or die(mysqli_error($conn));
+                                                        while ($rowc = mysqli_fetch_array($queryc)) {
+                                                            // Comparar el id_departamento del departamento actual con el registrado
+                                                            $selected = ($rowc['id_departamento'] == $row['id_departamento']) ? 'selected' : '';
+                                                        ?>
+                                                            <option value="<?php echo $rowc['id_departamento']; ?>" <?php echo $selected; ?>>
+                                                                <?php echo $rowc['nombre_departamento']; ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
                                                 </div>
                                             </div>
+
                                         </div>
 
 
@@ -164,24 +127,20 @@
                                             <div class="col-md-1 btn-print">
                                                 <div class="form-group">
 
-
-                                                </div><!-- /.form group -->
+                                                </div>
                                             </div>
                                             <div class="col-md-2 btn-print">
                                                 <div class="form-group">
 
-
-                                                </div><!-- /.form group -->
+                                                </div>
                                             </div>
                                             <div class="col-md-4 btn-print">
                                                 <div class="form-group">
-
                                                     <button type="submit" class="btn btn-primary">ACTUALIZAR</button>
 
-                                                    <a href="roles.php" class="btn btn-success">
+                                                    <a href="plaza.php" class="btn btn-success">
                                                         <i class="fa fa-arrow-left"></i> REGRESAR
                                                     </a>
-
                                                 </div>
                                             </div>
                                             <div class="col-md-4 btn-print">
@@ -198,7 +157,6 @@
         </div>
 
         <?php include '../includes/footer.php'; ?>
-        <?php include 'modal/aplicacion_modal.php'; ?>
     </div>
     <?php include '../includes/scripts.php'; ?>
 
