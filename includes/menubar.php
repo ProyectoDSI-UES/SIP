@@ -4,7 +4,9 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="<?php echo (!empty($user['imagen'])) ? '../usuario/subir_us/' . $user['imagen'] : '../layout/imagen/profile.jpg'; ?>" class="img-circle" alt="User Image">
+        <img
+          src="<?php echo (!empty($user['imagen'])) ? '../usuario/subir_us/' . $user['imagen'] : '../layout/imagen/profile.jpg'; ?>"
+          class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
         <p><?php echo $user['nombre'] . ' ' . $user['apellido']; ?></p>
@@ -38,7 +40,7 @@
       // Mostrar el menú según el rol del usuario
       if ($rol_usuario == "administrador") {
 
-      ?>
+        ?>
 
         <li class="header">GESTIÓN</li>
 
@@ -65,11 +67,18 @@
           </a>
         </li>
 
+        <li class="">
+          <a href="../asistencia/subir_asistencia.php">
+            <i class="fa fa-suitcase"></i>
+            <span>Asistencia</span>
+          </a>
+        </li>
 
-      <?php
-      // En caso de que el usuario tenga rol de empleado
+
+        <?php
+        // En caso de que el usuario tenga rol de empleado
       } elseif ($rol_usuario == "empleado") {
-      ?>
+        ?>
 
         <li class="header">GESTIÓN</li>
         <li class="">
@@ -78,17 +87,17 @@
             <span>Asistencias</span>
           </a>
         </li>
-    </ul>
-    </li>
+      </ul>
+      </li>
 
-  <?php
+      <?php
 
         # code...
       }
-  ?>
+      ?>
 
 
-  </ul>
+    </ul>
   </section>
   <!-- /.sidebar -->
 </aside>
