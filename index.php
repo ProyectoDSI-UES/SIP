@@ -41,10 +41,10 @@ if (isset($_SESSION['admin'])) {
           <?php
           if (isset($_SESSION['error'])) {
             echo "
-          <div class='alert alert-danger text-center'>
-            <p>" . $_SESSION['error'] . "</p> 
-          </div>
-        ";
+            <div class='alert alert-danger text-center'>
+                <p>" . $_SESSION['error'] . "</p> 
+            </div>
+            ";
             unset($_SESSION['error']);
           }
           ?>
