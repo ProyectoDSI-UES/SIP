@@ -59,6 +59,12 @@ if ($password == $password2) {
 			} else {
 				echo "No se pudo subir.";
 			}
+
+			if (!isset($id_plaza) || empty($id_plaza)) {
+				echo "<script type='text/javascript'>alert('Por favor, seleccione una plaza válida.');</script>";
+				echo "<script>document.location='usuario.php'</script>";
+				exit();
+			}
 		} else {
 			$pass = md5($password);
 			$salt = "a1Bz20ydqelm8m1wql";

@@ -95,7 +95,7 @@
             <label for="plazas" class="col-sm-3 control-label">Plaza</label>
 
             <div class="col-sm-9">
-            <select class="form-control select2" name="plazas" required>
+            <select class="form-control select2" name="id_plaza" required>
               <?php
               $query_plaza = mysqli_query($conn, "SELECT * FROM plaza where estado = 1") or die(mysqli_error($conn));
               while ($row_plaza = mysqli_fetch_array($query_plaza)) {

@@ -5,8 +5,19 @@ include '../includes/header.php';
 
 // Obtener el mes de la solicitud
 $selected_month = isset($_GET['month']) ? $_GET['month'] : date('Y-m', strtotime('-1 month'));
-$id_user = isset($_GET['id_user']) ? $_GET['id_user'] : (isset($_SESSION['id_user']) ? $_SESSION['id_user'] : null);
+// Validar ID del usuario
+$id_user = null;
 
+// Si viene por GET, úsalo
+if (isset($_GET['id_user'])) {
+    $id_user = $_GET['id_user'];
+} 
+// Si no viene por GET, intenta obtenerlo de la sesión
+else if (isset($_SESSION['id_user'])) {
+    $id_user = $_SESSION['id_user'];
+}
+
+// Si no se encuentra el ID, mostrar error y salir
 if (!$id_user) {
     die("Error: No se proporcionó un ID de usuario válido.");
 } // RH/Admin usa `id_user`, usuario usa su propio ID

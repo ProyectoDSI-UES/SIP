@@ -25,7 +25,8 @@ if (isset($_POST['login'])) {
         $row = $query->fetch_assoc();
         if ($pass === $row['password']) {
             if ($row['estado'] == 1) {
-                $_SESSION['admin'] = $row['id'];
+                $_SESSION['admin'] = $row['id']; // Mantener esto si es administrador
+                $_SESSION['id_user'] = $row['id']; // Guardar ID del usuario en la sesión
                 header('location: includes/home.php');
                 exit();
             } else {
