@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-11-2024 a las 03:22:41
+-- Tiempo de generación: 20-11-2024 a las 21:42:37
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.2
 
@@ -33,36 +33,6 @@ CREATE TABLE `asistencia` (
   `id_usuario` int(200) NOT NULL,
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `asistencia`
---
-
-INSERT INTO `asistencia` (`id_asistencia`, `id_usuario`, `fecha`) VALUES
-(2, 5, '2024-11-06'),
-(3, 5, '2024-10-01'),
-(4, 5, '2024-10-02'),
-(5, 5, '2024-10-03'),
-(6, 5, '2024-10-04'),
-(7, 5, '2024-10-07'),
-(8, 5, '2024-10-08'),
-(9, 5, '2024-10-09'),
-(10, 5, '2024-10-10'),
-(11, 5, '2024-10-11'),
-(12, 5, '2024-10-14'),
-(13, 5, '2024-10-15'),
-(14, 5, '2024-10-16'),
-(15, 5, '2024-10-17'),
-(16, 5, '2024-10-18'),
-(17, 5, '2024-10-21'),
-(18, 5, '2024-10-22'),
-(19, 5, '2024-10-23'),
-(20, 5, '2024-10-24'),
-(21, 5, '2024-10-25'),
-(22, 5, '2024-10-28'),
-(23, 5, '2024-10-29'),
-(24, 5, '2024-10-30'),
-(25, 5, '2024-10-31');
 
 -- --------------------------------------------------------
 
@@ -107,8 +77,9 @@ INSERT INTO `modulos` (`id_modulo`, `nombre`, `ruta`, `icono`) VALUES
 (2, 'Roles', '../roles/roles.php', 'suitcase'),
 (3, 'Departamento', '../departamento/departamento.php', 'group'),
 (4, 'Plaza', '../plaza/plaza.php', 'sitemap'),
-(5, 'Subir Asistencias', '../asistencia/subir_asistencia.php', 'suitcase'),
-(6, 'Ver Asistencias', '../asistencia/visualizar_asistencia.php', 'suitcase');
+(5, 'Asistencia', '../asistencia/subir_asistencia.php', 'suitcase'),
+(6, 'Vacaciones', '../vacaciones/vacaciones.php', 'newspaper-o'),
+(7, 'Solicitudes', '../gestion_vacacion/gestion_vacacion.php', 'folder');
 
 -- --------------------------------------------------------
 
@@ -166,8 +137,7 @@ INSERT INTO `roles` (`id_rol`, `nombre_rol`, `estado`, `descripcion`) VALUES
 (1, 'Administrador', 1, 'Acceso sin restricciones a los modulos del sistema de informacion de personal'),
 (2, 'Empleado', 1, 'El empleado cuenta con acceso restringido al sistema.'),
 (3, 'Recursos humanos', 1, 'Personal que realiza la gestiÃ³n del personal.'),
-(4, 'Electricidad', 1, 'Personal encargada de mantener en funcionamiento los sistema electricos'),
-(5, '', 0, '');
+(4, 'Electricidad', 1, 'Personal encargada de mantener en funcionamiento los sistema electricos');
 
 -- --------------------------------------------------------
 
@@ -190,8 +160,33 @@ INSERT INTO `rol_modulos` (`id_rol`, `id_modulo`) VALUES
 (1, 3),
 (1, 4),
 (1, 5),
+(1, 6),
+(1, 7),
+(2, 4),
 (2, 6),
 (3, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `solicitudes_vacaciones`
+--
+
+CREATE TABLE `solicitudes_vacaciones` (
+  `id_solicitud` int(11) NOT NULL,
+  `id_empleado` int(11) NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date NOT NULL,
+  `comentarios` varchar(500) DEFAULT NULL,
+  `estado` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `solicitudes_vacaciones`
+--
+
+INSERT INTO `solicitudes_vacaciones` (`id_solicitud`, `id_empleado`, `fecha_inicio`, `fecha_fin`, `comentarios`, `estado`) VALUES
+(8, 21, '2024-11-21', '2024-12-05', 'VacaciÃ³n anual', 'Rechazado');
 
 -- --------------------------------------------------------
 
@@ -236,12 +231,11 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id`, `usuario`, `password`, `id_rol`, `imagen`, `nombre`, `apellido`, `dui`, `telefono`, `correo`, `fecha_nacimiento`, `direccion`, `nacionalidad`, `estado`, `id_departamento`, `id_plaza`) VALUES
 (5, 'admin', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', 1, 'avatar_f.png', 'Sandra', 'Álvarez', '33222313-6', '63424342', 'sandra@gmail.com', '1990-01-01', '8501 NW 17TH ST STE 120', 'Salvadoreño', 1, 3, NULL),
 (15, 'sandra', 'a1Bz20ydqelm8m1wql19a6733a9b71ad5413ad1e2e9caeb8e6', 2, 'avatar_f.png', 'Sandra', 'Álvarez', '123456789', '5555-555', 'sandra@gmail.com', '1990-01-01', '8501 NW 17TH ST STE 120', 'El Salvador', 1, 5, NULL),
-(16, 'noe', 'a1Bz20ydqelm8m1wql4cddb5be1b125edbf1a5835a1e93d810', 1, 'avatar_m2.png', 'Noe', 'Cordova', '11223344-5', '2222-222', 'noe@gmail.com', '1995-01-01', '8501 NW 17TH ST STE 120', 'El Salvador', 1, 3, 1),
+(16, 'noe', 'a1Bz20ydqelm8m1wql4cddb5be1b125edbf1a5835a1e93d810', 1, 'avatar_m2.png', 'Noe', 'Cordova', '11223344-5', '2222-222', 'noe@gmail.com', '1995-01-01', '8501 NW 17TH ST STE 120', 'El Salvador', 1, 3, NULL),
 (17, 'kevin.melgar', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', 1, 'C _Users_kevin.melgar_Documents_Proyectos_support-table_MesaSoporteANDA_MesaSoporteANDA_Adjuntos_Tech TEC_2024_4_10651_2024415_standoge-anda-bw.jpg', 'Stanley', 'Melgar', '123455678', '12345677', 'mr21083@ues.edu.sv', '2024-10-01', 'Dirección ficticia ', 'Salvadoreño ', 1, 4, NULL),
 (19, 'usuario', 'a1Bz20ydqelm8m1wql202cb962ac59075b964b07152d234b70', 1, '', 'nombre1', 'apellido1', '1a', 'telefono', 'correo@correo', '2024-10-01', 'direccion', 'nacionalidad', 0, 3, NULL),
 (20, 'Alexis', 'a1Bz20ydqelm8m1wql81dc9bdb52d04dc20036dbd8313ed055', 2, 'profile.jpg', 'Alexis', 'PÃ©rez', '23443254-3', '77644345', 'alexis@gmail.com', '1998-10-24', 'Santa MarÃ­a', 'SalvadoreÃ±o', 1, 4, 1),
-(21, 'Jorge', 'a1Bz20ydqelm8m1wql81dc9bdb52d04dc20036dbd8313ed055', 2, 'Pngtreeâ€”users vector.png', 'Jorge', 'Martinez', '54323423-4', '65566532', 'jorge@gmail.com', '2000-11-15', 'Los almendros', 'SalvadoreÃ±o', 0, 4, 1),
-(24, 'prueba', 'a1Bz20ydqelm8m1wql202cb962ac59075b964b07152d234b70', 2, '', 'prueba', 'prueba', '11111111-1', '11111111', 'correo@correo', '2003-01-19', 'direccion', 'nacionalidad', 1, 3, 1);
+(21, 'Jorge', 'a1Bz20ydqelm8m1wql81dc9bdb52d04dc20036dbd8313ed055', 2, 'Pngtreeâ€”users vector.png', 'Jorge', 'Martinez', '54323423-4', '65566532', 'jorge@gmail.com', '2000-11-15', 'Los almendros', 'SalvadoreÃ±o', 1, 4, 1);
 
 --
 -- Índices para tablas volcadas
@@ -295,6 +289,13 @@ ALTER TABLE `rol_modulos`
   ADD KEY `fk_rol_modulo_modulo` (`id_modulo`);
 
 --
+-- Indices de la tabla `solicitudes_vacaciones`
+--
+ALTER TABLE `solicitudes_vacaciones`
+  ADD PRIMARY KEY (`id_solicitud`),
+  ADD KEY `id_empleado` (`id_empleado`);
+
+--
 -- Indices de la tabla `tipo_permiso`
 --
 ALTER TABLE `tipo_permiso`
@@ -317,7 +318,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `asistencia`
 --
 ALTER TABLE `asistencia`
-  MODIFY `id_asistencia` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_asistencia` int(200) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
@@ -329,7 +330,7 @@ ALTER TABLE `departamento`
 -- AUTO_INCREMENT de la tabla `modulos`
 --
 ALTER TABLE `modulos`
-  MODIFY `id_modulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_modulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `permiso`
@@ -341,13 +342,19 @@ ALTER TABLE `permiso`
 -- AUTO_INCREMENT de la tabla `plaza`
 --
 ALTER TABLE `plaza`
-  MODIFY `id_plaza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_plaza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id_rol` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_rol` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `solicitudes_vacaciones`
+--
+ALTER TABLE `solicitudes_vacaciones`
+  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_permiso`
@@ -359,7 +366,7 @@ ALTER TABLE `tipo_permiso`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(200) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Restricciones para tablas volcadas
@@ -390,6 +397,12 @@ ALTER TABLE `plaza`
 ALTER TABLE `rol_modulos`
   ADD CONSTRAINT `fk_rol_modulo_modulo` FOREIGN KEY (`id_modulo`) REFERENCES `modulos` (`id_modulo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_rol_modulo_rol` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id_rol`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `solicitudes_vacaciones`
+--
+ALTER TABLE `solicitudes_vacaciones`
+  ADD CONSTRAINT `solicitudes_vacaciones_ibfk_1` FOREIGN KEY (`id_empleado`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`
