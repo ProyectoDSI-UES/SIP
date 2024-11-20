@@ -71,7 +71,7 @@ date_default_timezone_set("America/El_Salvador");
 
         $rol_usuario = $row['nombre_rol'];
 
-        if ($rol_usuario == "empleado") {
+        if ($rol_usuario == "Empleado") {
 
         ?>
 
@@ -98,7 +98,7 @@ date_default_timezone_set("America/El_Salvador");
 
 
         <?php
-        if ($rol_usuario == "administrador") {
+        if ($rol_usuario == "Administrador") {
 
         ?>
 
