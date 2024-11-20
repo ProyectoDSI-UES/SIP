@@ -12,5 +12,5 @@ if (isset($_REQUEST['id_plaza'])) {
 $sql = "UPDATE plaza SET estado = 0 WHERE id_plaza='$id_plaza'";
 $query = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 
-// Redirigiendo a la página de roles
+// Redirigiendo a la página de plaza
 echo "<script>document.location='plaza.php'</script>";
