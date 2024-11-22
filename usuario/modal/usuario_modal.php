@@ -65,11 +65,35 @@
           </div>
 
           <div class="form-group">
-            <label for="nacionalidad" class="col-sm-3 control-label">Nacionalidad</label>
-
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="nacionalidad" name="nacionalidad" required>
-            </div>
+              <label for="nacionalidad" class="col-sm-3 control-label">Nacionalidad</label>
+              <div class="col-sm-9">
+                  <select class="form-control" id="nacionalidad" name="nacionalidad" required>
+                      <option value="">Seleccione un país</option>
+                      <option value="AR">Argentina</option>
+                      <option value="BO">Bolivia</option>
+                      <option value="BR">Brasil</option>
+                      <option value="CA">Canadá</option>
+                      <option value="CL">Chile</option>
+                      <option value="CO">Colombia</option>
+                      <option value="CR">Costa Rica</option>
+                      <option value="CU">Cuba</option>
+                      <option value="EC">Ecuador</option>
+                      <option value="SV">El Salvador</option>
+                      <option value="US">Estados Unidos</option>
+                      <option value="GT">Guatemala</option>
+                      <option value="HT">Haití</option>
+                      <option value="HN">Honduras</option>
+                      <option value="JM">Jamaica</option>
+                      <option value="MX">México</option>
+                      <option value="NI">Nicaragua</option>
+                      <option value="PA">Panamá</option>
+                      <option value="PY">Paraguay</option>
+                      <option value="PE">Perú</option>
+                      <option value="DO">República Dominicana</option>
+                      <option value="UY">Uruguay</option>
+                      <option value="VE">Venezuela</option>
+                  </select>
+              </div>
           </div>
 
           <div class="form-group">

@@ -354,24 +354,43 @@
 
                     <div class="row">
                       <div class="col-md-1 btn-print">
-                        <div class="form-group">
-
-                        </div><!-- /.form group -->
+                          <div class="form-group">
+                          </div>
                       </div>
                       <div class="col-md-2 btn-print">
-                        <div class="form-group">
-                          <label for="date">Nacionalidad</label>
-
-                        </div><!-- /.form group -->
+                          <div class="form-group">
+                              <label for="nacionalidad">Nacionalidad</label>
+                          </div>
                       </div>
                       <div class="col-md-4 btn-print">
-                        <div class="form-group">
-
-                          <input type="text" class="form-control" id="nacionalidad" name="nacionalidad" value="<?php echo $row['nacionalidad']; ?>" required>
-                        </div>
-                      </div>
-                      <div class="col-md-4 btn-print">
-
+                          <div class="form-group">
+                              <select class="form-control" id="nacionalidad" name="nacionalidad" required>
+                                  <option value="">Seleccione un país</option>
+                                  <option value="AR" <?php echo ($row['nacionalidad'] == 'AR') ? 'selected' : ''; ?>>Argentina</option>
+                                  <option value="BO" <?php echo ($row['nacionalidad'] == 'BO') ? 'selected' : ''; ?>>Bolivia</option>
+                                  <option value="BR" <?php echo ($row['nacionalidad'] == 'BR') ? 'selected' : ''; ?>>Brasil</option>
+                                  <option value="CA" <?php echo ($row['nacionalidad'] == 'CA') ? 'selected' : ''; ?>>Canadá</option>
+                                  <option value="CL" <?php echo ($row['nacionalidad'] == 'CL') ? 'selected' : ''; ?>>Chile</option>
+                                  <option value="CO" <?php echo ($row['nacionalidad'] == 'CO') ? 'selected' : ''; ?>>Colombia</option>
+                                  <option value="CR" <?php echo ($row['nacionalidad'] == 'CR') ? 'selected' : ''; ?>>Costa Rica</option>
+                                  <option value="CU" <?php echo ($row['nacionalidad'] == 'CU') ? 'selected' : ''; ?>>Cuba</option>
+                                  <option value="EC" <?php echo ($row['nacionalidad'] == 'EC') ? 'selected' : ''; ?>>Ecuador</option>
+                                  <option value="SV" <?php echo ($row['nacionalidad'] == 'SV') ? 'selected' : ''; ?>>El Salvador</option>
+                                  <option value="US" <?php echo ($row['nacionalidad'] == 'US') ? 'selected' : ''; ?>>Estados Unidos</option>
+                                  <option value="GT" <?php echo ($row['nacionalidad'] == 'GT') ? 'selected' : ''; ?>>Guatemala</option>
+                                  <option value="HT" <?php echo ($row['nacionalidad'] == 'HT') ? 'selected' : ''; ?>>Haití</option>
+                                  <option value="HN" <?php echo ($row['nacionalidad'] == 'HN') ? 'selected' : ''; ?>>Honduras</option>
+                                  <option value="JM" <?php echo ($row['nacionalidad'] == 'JM') ? 'selected' : ''; ?>>Jamaica</option>
+                                  <option value="MX" <?php echo ($row['nacionalidad'] == 'MX') ? 'selected' : ''; ?>>México</option>
+                                  <option value="NI" <?php echo ($row['nacionalidad'] == 'NI') ? 'selected' : ''; ?>>Nicaragua</option>
+                                  <option value="PA" <?php echo ($row['nacionalidad'] == 'PA') ? 'selected' : ''; ?>>Panamá</option>
+                                  <option value="PY" <?php echo ($row['nacionalidad'] == 'PY') ? 'selected' : ''; ?>>Paraguay</option>
+                                  <option value="PE" <?php echo ($row['nacionalidad'] == 'PE') ? 'selected' : ''; ?>>Perú</option>
+                                  <option value="DO" <?php echo ($row['nacionalidad'] == 'DO') ? 'selected' : ''; ?>>República Dominicana</option>
+                                  <option value="UY" <?php echo ($row['nacionalidad'] == 'UY') ? 'selected' : ''; ?>>Uruguay</option>
+                                  <option value="VE" <?php echo ($row['nacionalidad'] == 'VE') ? 'selected' : ''; ?>>Venezuela</option>
+                              </select>
+                          </div>
                       </div>
                     </div>
 

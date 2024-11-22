@@ -57,16 +57,17 @@
                 <table id="example1" class="table table-bordered">
 
                   <thead>
+                    <th>ID</th>
                     <th>Foto</th>
                     <th>Nombre</th>
                     <th>Usuario</th> <!-- Se agregó nombre de usuario -->
                     <th>DUI</th> <!-- Nueva columna para DUI -->
                     <th>Correo</th>
                     <th>Teléfono</th>
-                    <th>Usuario</th> <!-- Cambiado de "Usuario" a "Rol" -->
+                    <th>Rol</th> <!-- Cambiado de "Usuario" a "Rol" -->
                     <th>Fecha Nacimiento</th>
                     <th>Dirección</th>
-                    <th>Nacionalidad</th>
+                    <th>País</th>
                     <th>Plaza</th>
                     <th>Opciones</th>
                   </thead>
@@ -93,6 +94,9 @@
                       $id_user = $row['id_user'];
                     ?>
                       <tr>
+                        <!-- Mostrar ID del usuario -->
+                        <td><?php echo $id_user; ?></td>
+
                         <!-- Mostrar imagen del usuario -->
                         <td><img src="subir_us/<?php echo $row['imagen']; ?>" style="height:50px" /></td>
 
