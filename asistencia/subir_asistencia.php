@@ -86,32 +86,65 @@
       font-size: 18px;
     }
   </style>
-  <script>
-    const dropZone = document.getElementById('drop-zone');
-    const fileInput = document.getElementById('csv_file');
+<script>
+  // Seleccionar el formulario y el input de archivo
+  const form = document.querySelector('form');
+  const fileInput = document.getElementById('csv_file');
+  const dropZone = document.getElementById('drop-zone');
 
-    dropZone.addEventListener('click', () => {
-      fileInput.click();
-    });
+  // Event listener para cuando el formulario es enviado
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); // Evitar la recarga del formulario
 
-    dropZone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropZone.style.backgroundColor = '#e9f7ff';
-    });
+    // Crear un objeto FormData para enviar el archivo
+    const formData = new FormData(form);
 
-    dropZone.addEventListener('dragleave', () => {
-      dropZone.style.backgroundColor = '#f9f9f9';
-    });
+    // Crear un objeto XMLHttpRequest
+    const xhr = new XMLHttpRequest();
 
-    dropZone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropZone.style.backgroundColor = '#f9f9f9';
-      const files = e.dataTransfer.files;
-      if (files.length) {
-        fileInput.files = files;
+    // Establecer el comportamiento del request (en este caso 'POST')
+    xhr.open('POST', form.action, true);
+
+    // Evento cuando la solicitud se complete
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        // Si la subida es exitosa
+        alert('Archivo subido correctamente');
+      } else {
+        // Si hay un error en la subida
+        alert('Hubo un error al subir el archivo');
       }
-    });
-  </script>
+    };
+
+    // Enviar el formulario con el archivo
+    xhr.send(formData);
+  });
+
+  // Hacer clic en la zona de arrastre para abrir el explorador de archivos
+  dropZone.addEventListener('click', () => {
+    fileInput.click();
+  });
+
+  // Cambiar el color de fondo al arrastrar un archivo
+  dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropZone.style.backgroundColor = '#e9f7ff';
+  });
+
+  dropZone.addEventListener('dragleave', () => {
+    dropZone.style.backgroundColor = '#f9f9f9';
+  });
+
+  // Manejar el evento de "drop" (cuando un archivo es soltado en la zona de arrastre)
+  dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropZone.style.backgroundColor = '#f9f9f9';
+    const files = e.dataTransfer.files;
+    if (files.length) {
+      fileInput.files = files; // Establecer los archivos seleccionados
+    }
+  });
+</script>
 </body>
 
 </html>
