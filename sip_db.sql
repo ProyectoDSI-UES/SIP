@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1deb3
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 22-11-2024 a las 15:08:31
--- Versión del servidor: 8.0.40-0ubuntu0.24.04.1
--- Versión de PHP: 8.3.6
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 22-11-2024 a las 22:46:05
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `asistencia` (
-  `id_asistencia` int NOT NULL,
-  `id_usuario` int NOT NULL,
+  `id_asistencia` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
   `fecha` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `asistencia`
@@ -47,10 +47,10 @@ INSERT INTO `asistencia` (`id_asistencia`, `id_usuario`, `fecha`) VALUES
 --
 
 CREATE TABLE `departamento` (
-  `id_departamento` int NOT NULL,
+  `id_departamento` int(11) NOT NULL,
   `nombre_departamento` varchar(200) NOT NULL,
   `descripcion` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `departamento`
@@ -68,11 +68,11 @@ INSERT INTO `departamento` (`id_departamento`, `nombre_departamento`, `descripci
 --
 
 CREATE TABLE `modulos` (
-  `id_modulo` int NOT NULL,
+  `id_modulo` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
   `ruta` varchar(200) NOT NULL,
   `icono` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `modulos`
@@ -86,7 +86,9 @@ INSERT INTO `modulos` (`id_modulo`, `nombre`, `ruta`, `icono`) VALUES
 (5, 'Subir Asistencias', '../asistencia/subir_asistencia.php', 'suitcase'),
 (6, 'Vacaciones', '../vacaciones/vacaciones.php', 'newspaper-o'),
 (7, 'Solicitudes', '../gestion_vacacion/gestion_vacacion.php', 'folder'),
-(8, 'Ver Asistencias', '../asistencia/visualizar_asistencia.php', 'suitcase');
+(8, 'Ver Asistencias', '../asistencia/visualizar_asistencia.php', 'suitcase'),
+(9, 'Solicitar Permiso', '../permiso/solicitud_permiso.php', 'plane'),
+(10, 'Visualizar Permisos', '../permiso/visualizar_permisos.php', 'eye');
 
 -- --------------------------------------------------------
 
@@ -95,13 +97,20 @@ INSERT INTO `modulos` (`id_modulo`, `nombre`, `ruta`, `icono`) VALUES
 --
 
 CREATE TABLE `permiso` (
-  `id_vacaciones` int NOT NULL,
+  `id_vacaciones` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_final` date NOT NULL,
   `justificacion` varchar(150) NOT NULL,
-  `id_usuario` int NOT NULL,
-  `id_tipo` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id_usuario` int(11) NOT NULL,
+  `id_tipo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `permiso`
+--
+
+INSERT INTO `permiso` (`id_vacaciones`, `fecha_inicio`, `fecha_final`, `justificacion`, `id_usuario`, `id_tipo`) VALUES
+(3, '2024-11-26', '2024-11-30', 'Necesito un permiso personal para asistir a una boda.', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -110,11 +119,11 @@ CREATE TABLE `permiso` (
 --
 
 CREATE TABLE `plaza` (
-  `id_plaza` int NOT NULL,
-  `nombre` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `id_plaza` int(11) NOT NULL,
+  `nombre` varchar(50) DEFAULT NULL,
   `estado` tinyint(1) DEFAULT NULL,
-  `id_departamento` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+  `id_departamento` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `plaza`
@@ -130,11 +139,11 @@ INSERT INTO `plaza` (`id_plaza`, `nombre`, `estado`, `id_departamento`) VALUES
 --
 
 CREATE TABLE `roles` (
-  `id_rol` int NOT NULL,
-  `nombre_rol` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
+  `id_rol` int(11) NOT NULL,
+  `nombre_rol` varchar(100) NOT NULL,
   `estado` tinyint(1) NOT NULL,
-  `descripcion` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+  `descripcion` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Volcado de datos para la tabla `roles`
@@ -153,9 +162,9 @@ INSERT INTO `roles` (`id_rol`, `nombre_rol`, `estado`, `descripcion`) VALUES
 --
 
 CREATE TABLE `rol_modulos` (
-  `id_rol` int NOT NULL,
-  `id_modulo` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_rol` int(11) NOT NULL,
+  `id_modulo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `rol_modulos`
@@ -167,17 +176,21 @@ INSERT INTO `rol_modulos` (`id_rol`, `id_modulo`) VALUES
 (1, 3),
 (1, 4),
 (1, 5),
-(3, 5),
 (1, 6),
-(2, 6),
-(3, 6),
-(4, 6),
 (1, 7),
-(3, 7),
-(4, 7),
 (1, 8),
+(1, 9),
+(1, 10),
+(2, 6),
 (2, 8),
+(2, 9),
+(3, 5),
+(3, 6),
+(3, 7),
 (3, 8),
+(3, 10),
+(4, 6),
+(4, 7),
 (4, 8);
 
 -- --------------------------------------------------------
@@ -187,13 +200,13 @@ INSERT INTO `rol_modulos` (`id_rol`, `id_modulo`) VALUES
 --
 
 CREATE TABLE `solicitudes_vacaciones` (
-  `id_solicitud` int NOT NULL,
-  `id_empleado` int NOT NULL,
+  `id_solicitud` int(11) NOT NULL,
+  `id_empleado` int(11) NOT NULL,
   `fecha_inicio` date NOT NULL,
   `fecha_fin` date NOT NULL,
   `comentarios` varchar(500) DEFAULT NULL,
   `estado` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `solicitudes_vacaciones`
@@ -209,9 +222,18 @@ INSERT INTO `solicitudes_vacaciones` (`id_solicitud`, `id_empleado`, `fecha_inic
 --
 
 CREATE TABLE `tipo_permiso` (
-  `id_tipo` int NOT NULL,
-  `nombre_permiso` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+  `id_tipo` int(11) NOT NULL,
+  `nombre_permiso` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_permiso`
+--
+
+INSERT INTO `tipo_permiso` (`id_tipo`, `nombre_permiso`) VALUES
+(1, 'Personal'),
+(2, 'Médico'),
+(3, 'Estudios');
 
 -- --------------------------------------------------------
 
@@ -220,23 +242,23 @@ CREATE TABLE `tipo_permiso` (
 --
 
 CREATE TABLE `usuario` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `usuario` varchar(200) NOT NULL,
   `password` varchar(200) NOT NULL,
-  `id_rol` int NOT NULL,
+  `id_rol` int(11) NOT NULL,
   `imagen` varchar(200) NOT NULL,
   `nombre` varchar(200) NOT NULL,
   `apellido` varchar(200) NOT NULL,
-  `dui` varchar(10) CHARACTER SET latin1 COLLATE latin1_spanish_ci NOT NULL,
+  `dui` varchar(10) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `telefono` varchar(8) NOT NULL,
   `correo` varchar(200) NOT NULL,
   `fecha_nacimiento` varchar(200) NOT NULL,
   `direccion` varchar(200) NOT NULL,
   `nacionalidad` varchar(200) NOT NULL,
   `estado` tinyint(1) NOT NULL,
-  `id_departamento` int NOT NULL,
-  `id_plaza` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id_departamento` int(11) NOT NULL,
+  `id_plaza` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
@@ -334,55 +356,55 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `asistencia`
 --
 ALTER TABLE `asistencia`
-  MODIFY `id_asistencia` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_asistencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
 --
 ALTER TABLE `departamento`
-  MODIFY `id_departamento` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_departamento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `modulos`
 --
 ALTER TABLE `modulos`
-  MODIFY `id_modulo` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_modulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  MODIFY `id_vacaciones` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_vacaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `plaza`
 --
 ALTER TABLE `plaza`
-  MODIFY `id_plaza` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_plaza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id_rol` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_rol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `solicitudes_vacaciones`
 --
 ALTER TABLE `solicitudes_vacaciones`
-  MODIFY `id_solicitud` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_solicitud` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_permiso`
 --
 ALTER TABLE `tipo_permiso`
-  MODIFY `id_tipo` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- Restricciones para tablas volcadas
