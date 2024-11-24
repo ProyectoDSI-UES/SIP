@@ -22,7 +22,7 @@
                     unset($_SESSION['error']);
                 }
                 ?>
-                <form method="POST" action="procesar_solicitud_permiso.php">
+                <form method="POST" action="procesar_solicitud_permiso.php" onsubmit="return validarFormulario()">
                     <div class="form-group">
                         <label>Tipo de Permiso</label>
                         <select name="id_tipo" class="form-control" required>
@@ -37,12 +37,16 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Fecha de Inicio</label>
-                        <input type="date" name="fecha_inicio" class="form-control" required>
+                        <label>Fecha del Permiso</label>
+                        <input type="date" name="fecha" id="fecha" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Fecha de Finalización</label>
-                        <input type="date" name="fecha_final" class="form-control" required>
+                        <label>Hora de Inicio</label>
+                        <input type="time" name="hora_inicio" id="hora_inicio" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Hora Final</label>
+                        <input type="time" name="hora_final" id="hora_final" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Justificación</label>
@@ -53,6 +57,30 @@
             </section>
         </div>
     </div>
+
+    <script>
+        function validarFormulario() {
+            const fecha = document.getElementById('fecha').value;
+            const horaInicio = document.getElementById('hora_inicio').value;
+            const horaFinal = document.getElementById('hora_final').value;
+
+            // Validar que la fecha no sea en el pasado
+            const fechaHoy = new Date().toISOString().split('T')[0];
+            if (fecha < fechaHoy) {
+                alert('La fecha del permiso no puede ser en el pasado.');
+                return false;
+            }
+
+            // Validar que la hora final sea mayor que la hora inicial
+            if (horaFinal <= horaInicio) {
+                alert('La hora de finalización debe ser mayor que la hora de inicio.');
+                return false;
+            }
+
+            return true; // Si todo está bien, permite enviar el formulario
+        }
+    </script>
 </body>
 
 <?php include '../includes/scripts.php'; ?>
+

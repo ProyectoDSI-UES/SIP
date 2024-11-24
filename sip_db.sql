@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-11-2024 a las 22:46:05
+-- Tiempo de generación: 24-11-2024 a las 06:17:17
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -88,7 +88,8 @@ INSERT INTO `modulos` (`id_modulo`, `nombre`, `ruta`, `icono`) VALUES
 (7, 'Solicitudes', '../gestion_vacacion/gestion_vacacion.php', 'folder'),
 (8, 'Ver Asistencias', '../asistencia/visualizar_asistencia.php', 'suitcase'),
 (9, 'Solicitar Permiso', '../permiso/solicitud_permiso.php', 'plane'),
-(10, 'Visualizar Permisos', '../permiso/visualizar_permisos.php', 'eye');
+(10, 'Visualizar Permisos', '../permiso/visualizar_permisos.php', 'eye'),
+(11, 'Ver mis Permisos', '../permiso/ver_mis_permisos.php', 'eye');
 
 -- --------------------------------------------------------
 
@@ -98,19 +99,27 @@ INSERT INTO `modulos` (`id_modulo`, `nombre`, `ruta`, `icono`) VALUES
 
 CREATE TABLE `permiso` (
   `id_vacaciones` int(11) NOT NULL,
-  `fecha_inicio` date NOT NULL,
-  `fecha_final` date NOT NULL,
   `justificacion` varchar(150) NOT NULL,
   `id_usuario` int(11) NOT NULL,
-  `id_tipo` int(11) NOT NULL
+  `id_tipo` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `hora_inicio` time NOT NULL,
+  `hora_final` time NOT NULL,
+  `estado` enum('Pendiente','Aprobado','Rechazado') DEFAULT 'Pendiente',
+  `comentario_admin` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `permiso`
 --
 
-INSERT INTO `permiso` (`id_vacaciones`, `fecha_inicio`, `fecha_final`, `justificacion`, `id_usuario`, `id_tipo`) VALUES
-(3, '2024-11-26', '2024-11-30', 'Necesito un permiso personal para asistir a una boda.', 5, 1);
+INSERT INTO `permiso` (`id_vacaciones`, `justificacion`, `id_usuario`, `id_tipo`, `fecha`, `hora_inicio`, `hora_final`, `estado`, `comentario_admin`) VALUES
+(7, 'Hola', 5, 1, '2024-11-30', '10:29:00', '21:30:00', 'Aprobado', 'Claro que si mi chill.'),
+(8, 'Necesito un permiso para exponer en DSI y sacarme 10.', 5, 3, '2024-11-29', '12:50:00', '14:52:00', 'Rechazado', 'Deje de inventar'),
+(9, 'Necesito permiso para salir por 1 hora.', 5, 1, '2024-11-30', '13:13:00', '14:13:00', 'Aprobado', 'Se merece el permiso'),
+(10, 'Necesito salir a tomar aire fresco.', 5, 3, '2024-11-28', '14:34:00', '16:37:00', 'Aprobado', 'Procede, mi amigo.'),
+(11, 'Necesito salir a ver que hago.', 5, 1, '2024-11-26', '13:32:00', '15:37:00', 'Rechazado', 'No tiene permiso, tiene que ponerse a trabajar.'),
+(12, 'Necesito salir a buscar al T800', 23, 1, '2024-11-30', '14:44:00', '16:44:00', 'Pendiente', NULL);
 
 -- --------------------------------------------------------
 
@@ -130,7 +139,9 @@ CREATE TABLE `plaza` (
 --
 
 INSERT INTO `plaza` (`id_plaza`, `nombre`, `estado`, `id_departamento`) VALUES
-(1, 'Administrativo', 1, 4);
+(1, 'Administrativo', 1, 4),
+(2, 'Ventas', 1, 3),
+(3, 'Soporte', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -181,17 +192,21 @@ INSERT INTO `rol_modulos` (`id_rol`, `id_modulo`) VALUES
 (1, 8),
 (1, 9),
 (1, 10),
+(1, 11),
 (2, 6),
 (2, 8),
 (2, 9),
+(2, 11),
 (3, 5),
 (3, 6),
 (3, 7),
 (3, 8),
 (3, 10),
+(3, 11),
 (4, 6),
 (4, 7),
-(4, 8);
+(4, 8),
+(4, 11);
 
 -- --------------------------------------------------------
 
@@ -213,7 +228,7 @@ CREATE TABLE `solicitudes_vacaciones` (
 --
 
 INSERT INTO `solicitudes_vacaciones` (`id_solicitud`, `id_empleado`, `fecha_inicio`, `fecha_fin`, `comentarios`, `estado`) VALUES
-(8, 21, '2024-11-21', '2024-12-05', 'VacaciÃ³n anual', 'Aprobado');
+(8, 21, '2024-11-21', '2024-12-05', 'Vacación anual', 'Aprobado');
 
 -- --------------------------------------------------------
 
@@ -265,15 +280,17 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `usuario`, `password`, `id_rol`, `imagen`, `nombre`, `apellido`, `dui`, `telefono`, `correo`, `fecha_nacimiento`, `direccion`, `nacionalidad`, `estado`, `id_departamento`, `id_plaza`) VALUES
-(5, 'admin', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', 1, 'avatar_f.png', 'Sandra', 'Álvarez', '33222313-6', '63424342', 'sandra@gmail.com', '1990-01-01', '8501 NW 17TH ST STE 120', 'Salvadoreño', 1, 3, NULL),
-(15, 'sandra', 'a1Bz20ydqelm8m1wql19a6733a9b71ad5413ad1e2e9caeb8e6', 2, 'avatar_f.png', 'Sandra', 'Álvarez', '123456789', '5555-555', 'sandra@gmail.com', '1990-01-01', '8501 NW 17TH ST STE 120', 'El Salvador', 1, 5, NULL),
-(16, 'noe', 'a1Bz20ydqelm8m1wql4cddb5be1b125edbf1a5835a1e93d810', 1, 'noe.png', 'Noe', 'Cordova', '11223344-5', '2222-222', 'noe@gmail.com', '1995-01-01', '8501 NW 17TH ST STE 120', 'El Salvador', 1, 3, 1),
-(17, 'kevin.melgar', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', 1, 'kevin.melgar.png', 'Stanley', 'Melgar', '123455678', '12345677', 'mr21083@ues.edu.sv', '2024-10-01', 'Dirección ficticia ', 'Salvadoreño ', 1, 4, 1),
+(5, 'admin', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', 1, 'avatar_f.png', 'Sandra', 'Álvarez', '33222313-6', '63424342', 'sandra@gmail.com', '1990-01-01', '8501 NW 17TH ST STE 120', 'SV', 1, 3, 1),
+(15, 'sandra', 'a1Bz20ydqelm8m1wql19a6733a9b71ad5413ad1e2e9caeb8e6', 2, 'avatar_f.png', 'Sandra', 'Álvarez', '123456789', '5555-555', 'sandra@gmail.com', '1990-01-01', '8501 NW 17TH ST STE 120', 'SV', 1, 5, 1),
+(16, 'noe', 'a1Bz20ydqelm8m1wql4cddb5be1b125edbf1a5835a1e93d810', 1, 'noe.png', 'Noe', 'Cordova', '11223344-5', '2222-222', 'noe@gmail.com', '1995-01-01', '8501 NW 17TH ST STE 120', 'SV', 1, 3, 1),
+(17, 'kevin.melgar', 'a1Bz20ydqelm8m1wql21232f297a57a5a743894a0e4a801fc3', 1, 'kevin.melgar.png', 'Stanley', 'Melgar', '123455678', '12345677', 'mr21083@ues.edu.sv', '2024-10-01', 'Dirección ficticia ', 'SV', 1, 4, 1),
 (19, 'usuario', 'a1Bz20ydqelm8m1wql202cb962ac59075b964b07152d234b70', 1, '', 'nombre1', 'apellido1', '1a', 'telefono', 'correo@correo', '2024-10-01', 'direccion', 'nacionalidad', 0, 3, NULL),
-(20, 'Alexis', 'a1Bz20ydqelm8m1wql81dc9bdb52d04dc20036dbd8313ed055', 2, 'Alexis.png', 'Alexis', 'Pérez', '23443254-3', '77644345', 'alexis@gmail.com', '1998-10-24', 'Santa MarÃ­a', 'SalvadoreÃ±o', 1, 4, 1),
+(20, 'Alexis', 'a1Bz20ydqelm8m1wql81dc9bdb52d04dc20036dbd8313ed055', 2, 'Alexis.png', 'Alexis', 'Pérez', '23443254-3', '77644345', 'alexis@gmail.com', '1998-10-24', 'Santa María', 'SV', 1, 4, 1),
 (21, 'Jorge', 'a1Bz20ydqelm8m1wql81dc9bdb52d04dc20036dbd8313ed055', 2, 'Pngtreeâ€”users vector.png', 'Jorge', 'Martinez', '54323423-4', '65566532', 'jorge@gmail.com', '2000-11-15', 'Los almendros', 'SalvadoreÃ±o', 0, 4, 1),
-(23, 'john', 'a1Bz20ydqelm8m1wql2f23fa3579f3f75175793649115c1b25', 2, 'John_Connor.jpg', 'John', 'Connor', '11111111-1', '11111111', 'Pass123@Pass123', '2004-02-03', 'Washington ', 'Estados Unidos', 1, 5, 1),
-(24, 'sarah', 'a1Bz20ydqelm8m1wql2f23fa3579f3f75175793649115c1b25', 3, 'sarah.jpg', 'Sarah', 'Connor', '11111111-1', '25252525', 'Pass123@Pass123', '1980-01-01', 'Washington ', 'Estados Unidos', 1, 5, 1);
+(23, 'john', 'a1Bz20ydqelm8m1wql2f23fa3579f3f75175793649115c1b25', 2, 'John_Connor.jpg', 'John', 'Connor', '11111111-1', '11111111', 'Pass123@Pass123', '2004-02-03', 'Washington ', 'US', 1, 5, 1),
+(24, 'sarah', 'a1Bz20ydqelm8m1wql2f23fa3579f3f75175793649115c1b25', 3, 'sarah.jpg', 'Sarah', 'Connor', '11111111-1', '25252525', 'Pass123@Pass123', '1980-01-01', 'Washington', 'US', 1, 5, 1),
+(25, 'marvin', 'a1Bz20ydqelm8m1wql2f23fa3579f3f75175793649115c1b25', 4, 'marvin.png', 'Marvin', 'Martínez', '65321456-9', '36566665', 'Pass123@Pass123', '2003-01-08', 'San Salvador', 'SV', 1, 3, 3),
+(26, 'prueba', 'a1Bz20ydqelm8m1wql2f23fa3579f3f75175793649115c1b25', 1, 'Screenshot 2024-10-29 194539.png', 'prueba11222024', 'prueba11222024', '11111111-1', '11111111', 'Pass123@Pass123', '2024-11-02', 'San Salvador', 'PA', 0, 3, 1);
 
 --
 -- Índices para tablas volcadas
@@ -368,19 +385,19 @@ ALTER TABLE `departamento`
 -- AUTO_INCREMENT de la tabla `modulos`
 --
 ALTER TABLE `modulos`
-  MODIFY `id_modulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_modulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `permiso`
 --
 ALTER TABLE `permiso`
-  MODIFY `id_vacaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_vacaciones` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `plaza`
 --
 ALTER TABLE `plaza`
-  MODIFY `id_plaza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_plaza` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -404,7 +421,7 @@ ALTER TABLE `tipo_permiso`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Restricciones para tablas volcadas
