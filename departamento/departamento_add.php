@@ -1,12 +1,11 @@
-<?php
+<?php 
 session_start();
 include('../includes/conn.php');
 $nombre_departamento = $_POST['nombre_departamento'];
-$roles = $_POST['roles'];
+$descripcion = $_POST['descripcion']; // Cambiar "roles" a "descripcion"
 
-
-mysqli_query($conn, "INSERT INTO departamento(nombre_departamento,roles)
-				VALUES('$nombre_departamento','$roles')") or die(mysqli_error($conn));
-
+mysqli_query($conn, "INSERT INTO departamento(nombre_departamento, descripcion)
+                VALUES('$nombre_departamento', '$descripcion')") or die(mysqli_error($conn));
 
 echo "<script>document.location='departamento.php'</script>";
+?>
